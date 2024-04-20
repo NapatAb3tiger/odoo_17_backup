@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="tiger_report_po_form">
+
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+   <style>
+                        @font-face
+                        {
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+                        .font_fam{
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+
+                        table.table-bordered-b {
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                        <!--border:1px solid black;-->
+                        border-bottom:1px solid black;
+                        vertical-align: middle;
+                        text-align:center;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                        border:0px solid White;
+                        border-left: 1px solid black;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid black;
+                        padding:3px;
+                        }
+
+
+
+                        table.table-nobordered-b{
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+
+                        table.table-nobordered-c{
+                        border-collapse: collapse;
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; th{
+                        border-top: 1px solid black;
+                        border-bottom: 1px solid black;
+                        text-align: center;
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+
+                    </style>
+                    <div class="header">
+   <style>
+                        @font-face
+                        {
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+                        .font_fam{
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+
+                        table.table-bordered-b {
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                        <!--border:1px solid black;-->
+                        border-bottom:1px solid black;
+                        vertical-align: middle;
+                        text-align:center;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                        border:0px solid White;
+                        border-left: 1px solid black;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid black;
+                        padding:3px;
+                        }
+
+
+
+                        table.table-nobordered-b{
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+
+                        table.table-nobordered-c{
+                        border-collapse: collapse;
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; th{
+                        border-top: 1px solid black;
+                        border-bottom: 1px solid black;
+                        text-align: center;
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+
+                    </style>
+                        <table width="100%" class="table-nobordered-b" style="font-size: 12px; vertical-align: middle; ">
+                            <tr>
+                                <td width="15%" >
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:120px; max-width:120px;" alt="Logo"/>
+                                </td>
+                                <td width="65%" style="text-align:left;">
+                                    <table width="100%" class="table-nobordered-b" style="font-size: 12px; vertical-align: middle;">
+                                        <tr>
+                                            <td style="font-size: 14px; font-weight: bold;">
+                                                <span t-field="o.company_id.name"/><br/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>ที่อยู่ :&amp;nbsp;</span> <span t-field="o.company_id.street"/><br/>
+                                                <span>โทรศัพท์ :&amp;nbsp;</span> <span t-field="o.company_id.phone"/> &amp;nbsp;&amp;nbsp;  <span>อีเมลล์ :&amp;nbsp;</span> <span t-field="o.company_id.email"/><br/>
+                                                <span>เลขผู้เสียภาษี :&amp;nbsp;</span> <span t-field="o.company_id.vat"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 14px; font-weight: bold;">
+                                                <span >3 Tigers Engineering Co.,Ltd.</span><br/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>Address :&amp;nbsp;</span> <span t-field="o.company_id.street2"/><br/>
+                                                <span>Telephone :&amp;nbsp;</span> <span t-field="o.company_id.phone"/> &amp;nbsp;&amp;nbsp;  <span>Email :&amp;nbsp;</span> <span t-field="o.company_id.email"/><br/>
+                                                <span>Tax Identification number :&amp;nbsp;</span> <span t-field="o.company_id.vat"/>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                                <td width="20%" style="text-align:right;">
+                                    <span style="font-size: 24px;font-weight: bold;" t-field="o.name"/><br/>
+                                    <font style="font-size: 14px;">
+                                        <span>หน้า</span>
+                                        <span class="page"/>/<span class="topage"/><br/>
+                                    </font><br/>
+                                    <t t-set="print_time" t-value="context_timestamp(datetime.datetime.now()).strftime('%d %b %Y')"/>
+                                    <!--                                    <t t-set="print_time" t-value="context_timestamp(datetime.datetime.now()).strftime('%dd %b %Y %H:%M')"/>-->
+                                    <span t-esc="print_time"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" class="table-nobordered-b" style="font-size: 16px; vertical-align: middle; ">
+                            <tr>
+                                <td style="border-top: 1px solid #000;"/>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center;">
+                                    <t t-if="o.state == 'purchase'">
+                                        <span style=" font-size: 18px; font-weight: bold; text-align: center;">ใบสั่งซื้อ / Purchase Order</span>
+
+                                    </t>
+                                    <t t-elif="o.state == 'cancel'">
+                                        <span style=" font-size: 18px; font-weight: bold; text-align: center;">เอกสาร (ยกเลิก) / Document Cancel</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span style=" font-size: 18px; font-weight: bold; text-align: center;">ใบขอราคา / Requests for Quotation</span>
+
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 1px solid #000;"/>
+                            </tr>
+                        </table>
+                        <table width="100%" class="table-nobordered-b" style="font-size: 14px; vertical-align: middle; ">
+                            <tr>
+                                <td width="13%" style=" font-weight: bold;" >
+                                    <span>ผู้ขาย/Vendor :&amp;nbsp;</span>
+                                </td>
+                                <td width="46%" >
+                                    <span t-field="o.partner_id.name"/>
+                                </td>
+                                <td width="25%" style="text-align:right; font-weight: bold;">
+                                    <span>วันที่/Date :&amp;nbsp;</span>
+                                </td>
+                                <td width="13%" >
+                                    <t t-set="date_order" t-value="o.create_date.strftime('%d/%b/%Y')"/>
+                                    <span t-esc="create_date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="13%" rowspan="3" style=" font-weight: bold;" >
+                                    <span>ที่อยู่/Address :&amp;nbsp;</span>
+                                </td>
+                                <td width="46%" rowspan="3">
+                                    <span t-field="o.partner_id.street"/>
+                                </td>
+                                <td width="25%" style="text-align:right;  font-weight: bold;">
+                                      <t t-if="o.state == 'purchase'">
+ <span>เลขที่ใบสั่งซื้อ/PO No :&amp;nbsp;</span>
+                                    </t>
+                                    <t t-else="">
+ <span>เลขที่ใบขอราคา/RFQ No :&amp;nbsp;</span>
+                                    </t>
+
+                                </td>
+                                <td width="13%" >
+                                    <span t-field="o.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td width="25%" style="text-align:right; font-weight: bold;">
+<!--                                    <span>เงื่อนไขการชําระ/Payment Terms :&amp;nbsp;</span>-->
+                                </td>
+                                <td width="13%" >
+<!--                                    <span t-field="o.payment_term_id.name"/>-->
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td width="21%" style="text-align:right; font-weight: bold;">
+<!--                                    <span>ค่าจัดส่ง/Shipping cost :&amp;nbsp;</span>-->
+                                </td>
+                                <td width="13%" >
+<!--                                    <span t-field="o.shipping_cost"/>-->
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" class="table-nobordered-b" style="font-size: 14px; vertical-align: middle; ">
+                            <tr>
+                                <td width="25%" style=" font-weight: bold;">
+                                    <span>เลขผู้เสียภาษี/Tax ID :&amp;nbsp;</span>
+                                </td>
+                                <td width="15%" >
+                                    <span t-field="o.partner_id.vat"/>
+                                </td>
+                                <td width="10%" style="text-align:right; font-weight: bold;">
+                                    <span>โทร/Tel :&amp;nbsp;</span>
+                                </td>
+                                <td width="10%" colspan="3">
+                                    <span t-field="o.partner_id.phone"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td width="20%" rowspan="2" style=" font-weight: bold;">
+                                    <span>สถานที่จัดส่ง/Delivery Location :&amp;nbsp;</span>
+                                </td>
+                                <td colspan="5" rowspan="2">
+                                    <span t-field="o.location_company"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>&amp;nbsp;</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="25%" style=" font-weight: bold;">
+                                    <span>ชื่อผู้ติดต่อ/Contact person :&amp;nbsp;</span>
+                                </td>
+                                <td width="15%" >
+                                    <span t-field="o.partner_ref"/>
+                                </td>
+                                <td width="10%" style="text-align:right; font-weight: bold;">
+                                    <span>โทร/Tel :&amp;nbsp;</span>
+                                </td>
+                                <td width="13%" >
+                                    <span t-field="o.partner_id.phone"/>
+                                </td>
+                                <td width="19%" style="text-align:right; font-weight: bold;">
+<!--                                    <span>เซลล์ผู้ดูแล/Sale person :&amp;nbsp;</span>-->
+                                </td>
+                                <td width="15%" >
+<!--                                    <span t-field="o.user_id.name"/>-->
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="page">
+   <style>
+                        @font-face
+                        {
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+                        .font_fam{
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+
+                        table.table-bordered-b {
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                        <!--border:1px solid black;-->
+                        border-bottom:1px solid black;
+                        vertical-align: middle;
+                        text-align:center;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                        border:0px solid White;
+                        border-left: 1px solid black;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid black;
+                        padding:3px;
+                        }
+
+
+
+                        table.table-nobordered-b{
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+
+                        table.table-nobordered-c{
+                        border-collapse: collapse;
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; th{
+                        border-top: 1px solid black;
+                        border-bottom: 1px solid black;
+                        text-align: center;
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+
+                    </style>
+                        <table width="100%" class="table-nobordered-b" style="font-size: 12px; vertical-align: middle;">
+                            <thead>
+                                <tr>
+                                    <td colspan="6" style="border-top: 1px solid #000;"/>
+                                </tr>
+                                <tr>
+                                    <th width="10%" style=" text-align: center; font-weight: bold;">ลำดับ<br/>No</th>
+                                    <th width="42%" style=" text-align: center; font-weight: bold;">รายการ<br/>Description</th>
+                                    <th width="12%" style=" text-align: center; font-weight: bold;">จํานวน<br/>Quantity</th>
+                                    <th width="12%" style=" text-align: center; font-weight: bold;">หน่วย<br/>Unit</th>
+                                    <th width="12%" style=" text-align: center; font-weight: bold;">ราคาต่อหน่วย<br/>Unit Price</th>
+                                    <th width="12%" style=" text-align: center; font-weight: bold;">ราคารวม<br/>Amount (BHT)</th>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="6" style="border-top: 1px solid #000;"/>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="seq" t-value="0"/>
+<!--                                <t t-foreach="o.order_line" t-as="line">-->
+<!--                                    <tr>-->
+<!--                                        <td width="10%"  style=" text-align: center;">-->
+<!--                                            <t t-set="seq" t-value="seq + 1"/>-->
+<!--                                            <span t-esc="seq"/>-->
+
+<!--                                        </td>-->
+<!--                                        <td width="42%">-->
+<!--                                            <span t-field="line.product_id.name"/>-->
+<!--                                        </td>-->
+<!--                                        <td width="12%"  style=" text-align: center;">-->
+<!--                                            <span t-field="line.product_uom_qty"/>-->
+<!--                                        </td>-->
+<!--                                        <td width="12%"  style=" text-align: center;">-->
+<!--                                            <span t-field="line.product_uom"/>-->
+<!--                                        </td>-->
+<!--                                        <td width="12%"  style=" text-align: center;">-->
+<!--                                            <span t-field="line.price_unit"/>-->
+
+<!--                                        </td>-->
+<!--                                        <td width="12%"  style=" text-align: right;">-->
+<!--                                            <span t-field="line.price_reduce"/>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                </t>-->
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="footer">
+   <style>
+                        @font-face
+                        {
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+                        .font_fam{
+                        font-family: SarabunPSK;
+                        src: local('United'), url("/tiger_report_all/static/sarabun/Sarabun-Regular.ttf") format('opentype');
+                        }
+
+                        table.table-bordered-b {
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                        <!--border:1px solid black;-->
+                        border-bottom:1px solid black;
+                        vertical-align: middle;
+                        text-align:center;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                        border:0px solid White;
+                        border-left: 1px solid black;
+                        padding:3px;
+                        }
+                        table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid black;
+                        padding:3px;
+                        }
+
+
+
+                        table.table-nobordered-b{
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+                        table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:0px;
+                        }
+
+                        table.table-nobordered-c{
+                        border-collapse: collapse;
+                        margin:0px;
+                        width: 100%;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; th{
+                        border-top: 1px solid black;
+                        border-bottom: 1px solid black;
+                        text-align: center;
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; thead &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tbody &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+                        table.table-nobordered-c &gt; tfoot &gt; tr &gt; td{
+                        border:1px solid white;
+                        padding:1px;
+                        }
+
+                    </style>
+
+                        <table width="100%" class="table-nobordered-b" style="font-size: 12px; vertical-align: middle;text-align: center; ">
+                            <tr>
+                                <td colspan="3" style="border-top: 1px solid #000;"/>
+                            </tr>
+                            <tr>
+                                <td width="33.3%">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <t t-set="day" t-value="context_timestamp(datetime.datetime.now()).strftime('%d')"/>
+                                    <t t-set="month" t-value="context_timestamp(datetime.datetime.now()).strftime('%m')"/>
+                                    <t t-set="year" t-value="context_timestamp(datetime.datetime.now()).strftime('%y')"/>
+                                    <span>........................................................</span><br/>
+                                    <span style=" font-weight: bold;">ผู้จัดทํา / Prepared</span><br/>
+                                    <span>วันที่ / Date </span>&amp;nbsp;&amp;nbsp;<span t-esc="day"/>/<span t-esc="month"/>/<span t-esc="year"/>
+                                </td>
+                                <td width="33.3%">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <span>........................................................</span><br/>
+                                    <span style=" font-weight: bold;">ผู้อนุมัติ / Endorser</span><br/>
+                                    <span>วันที่/ Date : ........./........./......... </span>
+                                </td>
+                                <td width="33.3%">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <span>........................................................</span><br/>
+                                    <span style=" font-weight: bold;">ผู้สั่งซื้อ / Orderer
+                                    </span><br/>
+                                    <span>วันที่ / Date : ........./........./......... </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                </t>
+            </t>
+
+        </template>
+
+        <record id="paperformat_A4_Zero_Margin_tiger_report_po" model="report.paperformat">
+            <field name="name">A4_Zero_Margin_tiger_report_po</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">80</field>
+            <field name="margin_bottom">55</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">96</field>
+        </record>
+
+<!--        <report-->
+<!--                id="report_po_form"-->
+<!--                model="purchase.order"-->
+<!--                menu="True"-->
+<!--                report_type="qweb-pdf"-->
+<!--                string="Document PO"-->
+<!--                paperformat="tiger_report_all.paperformat_A4_Zero_Margin_tiger_report_po"-->
+<!--                name="tiger_report_all.tiger_report_po_form"-->
+<!--                file="tiger_report_all.tiger_report_po_form"-->
+<!--        />-->
+
+          <record id="report_po_form" model="ir.actions.report">
+       <field name="name">Document PO</field>
+       <field name="model">purchase.order</field>
+       <field name="report_type">qweb-pdf</field>
+       <field name="report_name">tiger_report_all.tiger_report_po_form</field>
+       <field name="report_file">tiger_report_all.tiger_report_po_form</field>
+       <field name="print_report_name">'Document PO - %s' % (object.name)</field>
+       <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+       <field name="binding_type">report</field>
+   </record>
+
+    </data>
+</odoo>

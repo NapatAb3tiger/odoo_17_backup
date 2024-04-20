@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_sale_order_new" model="ir.ui.view">
+        <field name="name">sale.order.new</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                 <field name="shipping_cost" />
+                 <field name="contact_id1" create="0" />
+                 <field name="contact_phone1" />
+                 <field name="areebin" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
