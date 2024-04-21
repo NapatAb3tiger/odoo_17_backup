@@ -6,9 +6,8 @@
         <field name="arch" type="xml">
             <field name="payment_term_id" position="after">
                  <field name="shipping_cost" />
-                 <field name="contact_id1" create="0" />
+                 <field name="contact_id1" create="0" context="{'default_type':'contact', 'show_address': False, 'show_vat': False}"/>
                  <field name="contact_phone1" />
-                 <field name="areebin" />
             </field>
         </field>
     </record>
