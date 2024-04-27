@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_res_company_new" model="ir.ui.view">
+        <field name="name">res.company.new</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="logo" position="after">
+                  <div class="oe_title">
+                        <label for="name_th"/>
+                        <h1>
+                            <field name="name_th" placeholder="Company Name TH"/>
+                        </h1>
+                    </div>
+            </field>
+        </field>
+    </record>
+
+</odoo>

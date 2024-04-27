@@ -82,7 +82,7 @@
                                     <table width="100%" class="table-nobordered-b" style=" vertical-align: middle;">
                                         <tr>
                                             <td style="font-size: 22px; font-weight: bold;">
-                                                <span t-field="o.company_id.name"/><br/>
+                                                <span t-field="o.company_id.name_th" /><br/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -350,7 +350,7 @@
                                             </div>
 
                                         </td>
-                                        <t t-if="line.product_id.name not in [ 'Discount'','ส่วนลด']">
+                                        <t t-if="line.product_id.name != 'Discount' or line.product_id.name != 'ส่วนลด'">
 
 
                                             <td width="10%"  style=" text-align: center;">
@@ -546,7 +546,7 @@
                             <!--                            </tr>-->
                             <tr>
                                 <!--                                <td width="70%" style="color: red;font-weight: bold;border-right: 1px solid #000;">-->
-                                <td width="70%" style="color: red;font-weight:">
+                                <td width="70%" style="color: red;font-weight: bold; ">
                                     <span >ข้อกําหนดและเงื่อนไข / Term and Conditions. </span>
                                 </td>
                                 <td/>
@@ -640,7 +640,7 @@
 
                         <table width="100%" class="table-nobordered-b" style="font-size: 12px; vertical-align: middle;text-align: center; ">
                             <tr>
-                                <td colspan="3" s                                               1tyle="border-top: 1px solid #000;"/>
+                                <td colspan="3" style="border-top: 1px solid #000;"/>
                             </tr>
                             <tr>
                                 <td width="33.3%">
