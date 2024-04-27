@@ -154,7 +154,7 @@
                                 </td>
                                 <td width="46%" rowspan="3" style="bold;vertical-align: top;">
                                     <div class="word_wrap" style="width:420px;">
-                                    <span t-field="o.partner_id.street"/>
+                                        <span t-field="o.partner_id.street"/>
                                     </div>
                                 </td>
                                 <td width="25%" style="text-align:right;  font-weight: bold;">
@@ -206,9 +206,9 @@
                                     <span>สถานที่จัดส่ง/ Delivery Location :&amp;nbsp;</span>
                                 </td>
                                 <td colspan="5" rowspan="2" style="vertical-align: top;">
-                                     <div class="word_wrap" style="width:500px;">
-                                    <span t-field="o.partner_shipping_id.street"/>
-                                     </div>
+                                    <div class="word_wrap" style="width:500px;">
+                                        <span t-field="o.partner_shipping_id.street"/>
+                                    </div>
                                 </td>
 
                             </tr>
@@ -321,10 +321,12 @@
                                     <th width="5%" style=" text-align: center; font-weight: bold;">ลำดับ<br/><span style="font-size: 11px;">No</span></th>
                                     <!--                                    <th width="10%" style=" text-align: center; font-weight: bold;"> </th>-->
                                     <!--                                    >รหัสสินค้า<br/><span style="font-size: 11px;">SKU</span>-->
-                                    <th width="45%" colspan="2" style=" text-align: center; font-weight: bold;">รายการ<br/><span style="font-size: 11px;">Description</span></th>
+                                    <th width="45%" style=" text-align: center; font-weight: bold;">รายการ<br/><span style="font-size: 11px;">Description</span></th>
                                     <th width="10%" style=" text-align: center; font-weight: bold;">จํานวน<br/><span style="font-size: 11px;">Quantity</span></th>
                                     <th width="10%" style=" text-align: center; font-weight: bold;">หน่วย<br/><span style="font-size: 11px;">Unit</span></th>
                                     <th width="10%" style=" text-align: center; font-weight: bold;">ราคาต่อหน่วย<br/><span style="font-size: 11px;">Unit Price</span></th>
+                                    <th width="10%" style=" text-align: center; font-weight: bold;">ส่วนลด<br/><span style="font-size: 11px;">Discount</span></th>
+
                                     <th width="10%" style=" text-align: center; font-weight: bold;">ราคารวม<br/><span style="font-size: 11px;">Amount (BHT)</span></th>
 
                                 </tr>
@@ -341,17 +343,14 @@
                                             <span t-esc="seq"/>
 
                                         </td>
-                                        <td width="10%"  style=" text-align: center;">
 
-                                            <span t-field="line.product_id.default_code"/>
-                                        </td>
                                         <td width="45%">
                                             <div class="word_wrap" style="width:450px;">
                                                 <span t-field="line.name"/>
                                             </div>
 
                                         </td>
-                                        <t t-if="line.product_id.name != 'Discount'">
+                                        <t t-if="line.product_id.name not in [ 'Discount'','ส่วนลด']">
 
 
                                             <td width="10%"  style=" text-align: center;">
@@ -360,11 +359,17 @@
                                             <td width="10%"  style=" text-align: center;">
                                                 <span t-field="line.product_uom"/>
                                             </td>
+
                                             <td width="10%"  style=" text-align: right;">
                                                 <span t-field="line.price_unit"/>
                                             </td>
+                                            <td width="10%"  style=" text-align: center;">
+
+                                                <span t-field="line.discount"/> %
+                                            </td>
                                         </t>
                                         <t t-else="">
+                                            <td/>
                                             <td/>
                                             <td/>
                                             <td/>
@@ -514,21 +519,24 @@
                         </style>
 
                         <table width="100%" class="table-nobordered-b" style="font-size: 12px; vertical-align: middle; ">
-                             <td colspan="3" style="border-top: 1px solid #000;"/>
+                            <td colspan="3" style="border-top: 1px solid #000;"/>
                             <tr>
-                                <td style="color: red;font-weight: bold; border-right: 1px solid #000; ">
+                                <td style="color: red;font-weight: bold; ">
+                                    <!--                                <td style="color: red;font-weight: bold; border-right: 1px solid #000; ">-->
                                     <span>ช่องทางการชําระเงิน / Payment Method</span>
                                 </td>
                                 <td/>
                             </tr>
                             <tr>
-                                <td  style="border-right: 1px solid #000;">
+                                <td>
+                                    <!--                                <td  style="border-right: 1px solid #000;">-->
                                     <span>ธนาคาร ไทยพาณิชย์ / เลขที่ 160-426829-2 / ชื่อบัญชี บริษัท 3 เสือ เอ็นจิเนียริ่ง จํากัด</span>
                                 </td>
 
                             </tr>
                             <tr>
-                                <td style="border-right: 1px solid #000;" >
+                                <td>
+                                    <!--                                <td style="border-right: 1px solid #000;" >-->
                                     <span>Bank : SCB / Account Number : 160-426829-2 / Account Name : 3 Tigers Engineering Co.,Ltd.</span>
                                 </td>
 
@@ -537,14 +545,16 @@
                             <!--                                <td colspan="2" style="border-top: 1px solid #000;"/>-->
                             <!--                            </tr>-->
                             <tr>
-                                <td width="70%" style="color: red;font-weight: bold;border-right: 1px solid #000;">
+                                <!--                                <td width="70%" style="color: red;font-weight: bold;border-right: 1px solid #000;">-->
+                                <td width="70%" style="color: red;font-weight:">
                                     <span >ข้อกําหนดและเงื่อนไข / Term and Conditions. </span>
                                 </td>
                                 <td/>
 
                             </tr>
                             <tr>
-                                <td width="70%" style="border-right: 1px solid #000;">
+                                <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
+                                <td width="70%" style="">
                                     <span>1. ราคาที่เสนอเป็นราคาพิเศษสําหรับโครงการนี้เท่านั้น / The price offered is a special price for this project only </span>
                                 </td>
                                 <td width="20%">
@@ -555,7 +565,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="70%" style="border-right: 1px solid #000;">
+                                <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
+                                <td width="70%" style="">
                                     <span>2. ขอยืนราคาให้ภายใน 30 วัน นับจากวันที่เสนอราคา / Confirm the price within 30 days from the date of the bid.</span>
                                 </td>
                                 <td width="20%">
@@ -568,7 +579,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="70%" style="border-right: 1px solid #000;">
+                                <td width="70%" style="">
+                                    <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
                                     <span>3. ระยะเวลาผลิต 20 วัน หรือตามตกลง / Production time 20 days or as agreed</span>
                                 </td>
                                 <td width="20%">
@@ -579,7 +591,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="70%" style="border-right: 1px solid #000;">
+                                <td width="70%" style="">
+                                    <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
                                     <span>4. ต้องลงนามในใบสั่ฃซื้อทุกครั้ง เพื่อเป็นการยืนยันรายการสั่งซื้อ / Must sign every purchase order. to confirm order.</span>
                                 </td>
                                 <td width="20%">
@@ -589,11 +602,12 @@
                                     <span t-field="o.amount_tax"/>
                                 </td>
                             </tr>
-                               <tr>
+                            <tr>
                                 <td colspan="3" style="border-top: 1px solid #000;"/>
                             </tr>
                             <tr>
-                                <td style="border-right: 1px solid #000;">
+                                <td width="70%" style="">
+                                    <!--                                <td style="border-right: 1px solid #000;">-->
                                     <table width="100%" class="table-nobordered-b">
                                         <tr>
                                             <td>
@@ -626,7 +640,7 @@
 
                         <table width="100%" class="table-nobordered-b" style="font-size: 12px; vertical-align: middle;text-align: center; ">
                             <tr>
-                                <td colspan="3" style="border-top: 1px solid #000;"/>
+                                <td colspan="3" s                                               1tyle="border-top: 1px solid #000;"/>
                             </tr>
                             <tr>
                                 <td width="33.3%">
