@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_so_form">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+
+                    <div class="header">
+                        <style>
+
+                            table.table-bordered-b {
+                            border:1px solid #9400D3;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                            border:1px solid #9400D3;
+                            vertical-align: middle;
+                            text-align:center;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                            border:0px solid White;
+                            border-left: 1px solid #9400D3;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid #9400D3;
+                            padding:3px;
+                            }
+
+
+                            table.table-nobordered-b{
+                            border-collapse: collapse;
+                            margin:0px;
+                            width: 100%;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                            border-top: 1px solid black;
+                            border-bottom: 1px solid black;
+                            text-align: center;
+                            <!--border:1px solid white;-->
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            .color-text{
+                            color:#9932CC;
+                            }
+                            .color-b{
+                            color:#9932CC;
+                            font-weight: bold;
+                            }
+                            .word-wrap{ word-wrap:break-word;}
+                        </style>
+                        <table width="100%" class="table-nobordered-b color-text" style="font-size: 12px;">
+                            <tr >
+                                <td width="40%" style="text-align: left;">
+                                    <table width="100%" style="font-size: 16px; " class="table-nobordered-b color-text">
+                                        <tr>
+                                            <td style="font-size: 18px; font-weight: bold;">
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>บริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด (สำนักงานใหญ่)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>44/1 หมู่ที่ 6 ตำบลบางกระทึก อำเภอสามพราน</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>จังหวัดนครปฐม 73210</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>เลขประจำตัวผู้เสียภาษี 0-9155-62000-18-2</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>โทรศัพท์ : 097-1616918 / 082-6346394</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>อีเมลล์ Sbbed.sale@gmail.com</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td width="20%" style=" text-align: center ; vertical-align: middle;">
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:120px; max-width:120px;  " alt="Logo"/>
+                                </td>
+                                <td width="40%" style="text-align: right;">
+                                    <table width="100%" style="font-size: 16px; " class="table-nobordered-b color-text">
+                                        <tr>
+                                            <td style="font-size: 18px; font-weight: bold;">
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>บริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด (สำนักงานใหญ่)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>44/1 หมู่ที่ 6 ตำบลบางกระทึก อำเภอสามพราน</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>จังหวัดนครปฐม 73210</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>เลขประจำตัวผู้เสียภาษี 0-9155-62000-18-2</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>โทรศัพท์ : 097-1616918 / 082-6346394</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td >
+                                                <!--                                                <span t-field="o.company_id.name"/>-->
+                                                <span>อีเมลล์ Sbbed.sale@gmail.com</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" style="font-size: 26px; text-align: center ; vertical-align: middle; font-weight: bold; " class="table-bordered-b color-text">
+                            <tr>
+                                <td width="80%">
+                                    <span>ต้นฉบับใบกำกับภาษี/ ใบแจ้งหนี้/ ใบส่งสินค้า </span><br/>
+                                    <span style="font-size: 15px;">ORIGINAL TAX INVOICE/ INVOICE/ DELIVERY ORDER</span>
+                                </td>
+                                <td width="20%">
+                                    <span>ลูกค้า</span><br/>
+                                    <span style="font-size: 15px;">CUSTOMER</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <div style="border:1px solid #9400D3;  padding:2px;">
+                            <table width="100%" style="font-size: 15px; vertical-align: middle; " class="table-nobordered-b">
+                                <tr>
+                                    <td width="10%" class="color-b">
+                                        <span>ชื่อลูกค้า</span>
+                                    </td>
+                                    <td width="55%" rowspan="2">
+                                        <div class="word-wrap" style="width: 500px;">
+                                            <span t-field="o.partner_id.name"/>
+                                        </div>
+
+                                    </td>
+                                    <td width="5%" class="color-b">
+                                        <span>เลขที่</span>
+                                    </td>
+                                    <td width="25%" colspan="2" rowspan="2">
+                                        <span t-field="o.name"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%" class="color-b" style="font-size: 11px;">
+                                        <span>Customer Name.</span>
+                                    </td>
+
+                                    <td width="5%" class="color-b" style="font-size: 11px;">
+                                        <span>No.</span>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td width="10%" class="color-b">
+                                        <span>ที่อยู่</span>
+                                    </td>
+                                    <td width="45%" rowspan="4">
+                                        <div class="word-wrap" style="width: 500px;">
+                                            <span t-field="o.partner_id.street"/>
+                                        </div>
+
+
+                                    </td>
+                                    <td width="5%" class="color-b">
+                                        <span>วันที่</span>
+                                    </td>
+                                    <td width="25%" colspan="2" rowspan="2">
+                                        <span t-esc="o.create_date.strftime('%d / %b / %Y')"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%" class="color-b" style="font-size: 11px;">
+                                        <span>Address.</span>
+                                    </td>
+
+                                    <td width="5%" class="color-b" style="font-size: 11px;">
+                                        <span>Date.</span>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td width="10%" class="color-b" >
+
+                                    </td>
+
+                                    <td width="15%" colspan="2" class="color-b" >
+                                        <span>เงื่อนไขการชำระเงิน</span>
+                                    </td>
+
+                                    <td width="15%" rowspan="2">
+                                        <span t-field="o.payment_term_id.name"/>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%" class="color-b" style="font-size: 11px;">
+
+                                    </td>
+
+                                    <td width="15%" colspan="2" class="color-b" style="font-size: 11px;">
+                                        <span>Term of payment.</span>
+                                    </td>
+
+
+                                </tr>
+                            </table>
+                            <table width="100%" style="font-size: 15px; vertical-align: middle; " class="table-nobordered-b">
+                                <tr>
+                                    <td width="10%" class="color-b">
+                                        <span>เบอร์โทรศัพท์</span>
+                                    </td>
+                                    <td width="25%" colspan="2" rowspan="2" >
+
+                                            <span t-field="o.partner_id.phone"/>
+
+                                    </td>
+                                    <td width="10%"  class="color-b">
+                                        <span>ชื่อผู้ติดต่อ</span>
+                                    </td>
+                                    <td width="20%" rowspan="2" >
+                                        <span t-field="o.contact_id1.name"/>
+                                    </td>
+                                    <td width="15%" class="color-b">
+                                        <span>วันครบกำหนด</span>
+                                    </td>
+                                    <td width="15%" colspan="2" rowspan="2">
+
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%" class="color-b" style="font-size: 11px;">
+                                        <span>Tax ID.</span>
+                                    </td>
+
+                                    <td width="10%" class="color-b" style="font-size: 11px;">
+                                        <span>Contact By.</span>
+                                    </td>
+                                    <td width="15%" class="color-b" style="font-size: 11px;">
+                                        <span>Due date.</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </div>
+                    <div class="page">
+                        <style>
+
+                            table.table-bordered-b {
+                            border:1px solid #9400D3;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                            border:1px solid #9400D3;
+                            vertical-align: middle;
+                            text-align:center;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                            border:0px solid White;
+                            border-left: 1px solid #9400D3;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid #9400D3;
+                            padding:3px;
+                            }
+
+
+                            table.table-nobordered-b{
+                            border-collapse: collapse;
+                            margin:0px;
+                            width: 100%;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                            border-top: 1px solid black;
+                            border-bottom: 1px solid black;
+                            text-align: center;
+                            <!--border:1px solid white;-->
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            .color-text{
+                            color:#9932CC;
+                            }
+
+                        </style>
+                        <t t-set="max_body_height" t-value="100"/>
+                        <t t-set="new_line_height" t-value="2"/>
+                        <t t-set="row_line_height" t-value="7.9375"/> <!--- 30px = 7.9375 mm -->
+                        <t t-set="max_line_lenght" t-value="50"/>
+                        <t t-set="break_line" t-value="o.get_break_line(max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
+                        <t t-set="start" t-value="0"/>
+                        <t t-set="end" t-value="0"/>
+                        <t t-foreach="range(0,len(break_line),1)" t-as="x">
+                            <table style="height:115mm; font-size:15px;" width="100%" class="table-bordered-b ">
+                                <thead class="color-text" style=" text-align:center  vertical-align: middle; font-weight: bold; ">
+                                    <th width="5%"><span>ลำดับ</span><br/><span style="font-size:10px;">No.</span></th>
+                                    <th width="42%"><span>รายการ</span><br/><span style="font-size:10px;">Description.</span></th>
+                                    <th width="10%"><span>จำนวน</span><br/><span style="font-size:10px;">Quantity.</span></th>
+                                    <th width="10%"><span>หน่วย</span><br/><span style="font-size:10px;">Unit.</span></th>
+                                    <th width="13%"><span>ราคาต่อหน่วย</span><br/><span style="font-size:10px;">Unit Price.</span></th>
+                                    <th width="10%"><span>ส่วนลด</span><br/><span style="font-size:10px;">Dis.</span></th>
+                                    <th width="10%"><span>ราคารวม</span><br/><span style="font-size:10px;">Amount (THB).</span></th>
+                                </thead>
+                                <tbody class="sale_tbody" style="font-size:14px;">
+                                    <t t-foreach="range(start,break_line[x],1)" t-as="y">
+                                        <t t-if="(y+1)!=(break_line[x])">
+                                            <tr style="height:10mm;">
+                                                <td style="text-align:center">
+                                                    <div class="word_wrap">
+                                                        <span t-esc="y+1"/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                            </tr>
+
+                                        </t>
+                                        <t t-if="(y+1)==(break_line[x])">
+                                            <tr>
+                                                <td style="text-align:center">
+                                                    <div class="word_wrap">
+                                                        <span t-esc="y+1"/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.order_line[y].name"/>
+                                                </td>
+                                            </tr>
+
+                                            <t t-set="end" t-value="(break_line[x])"/>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <!--</tfoot>-->
+                                <!--if using tfoot it will help to continue the table -->
+                            </table>
+                            <t t-set="start" t-value="break_line[x]"/>
+                            <p style="page-break-after:always;"/>
+                        </t>
+                        <span>loo</span>
+                    </div>
+                    <div class="footer">
+                        <style>
+
+                            table.table-bordered-b {
+                            border:1px solid black;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                            border:1px solid black;
+                            vertical-align: middle;
+                            text-align:center;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                            border:0px solid White;
+                            border-left: 1px solid black;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid black;
+                            padding:3px;
+                            }
+
+
+                            table.table-nobordered-b{
+                            border-collapse: collapse;
+                            margin:0px;
+                            width: 100%;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                            border-top: 1px solid black;
+                            border-bottom: 1px solid black;
+                            text-align: center;
+                            <!--border:1px solid white;-->
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+
+                        </style>
+                        <span>loooo</span>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <record id="paperformat_A4_Zero_Margin_report_so" model="report.paperformat">
+            <field name="name">A4_Zero_Margin_report_so</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">150</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">130</field>
+            <field name="dpi">96</field>
+        </record>
+
+        <record id="report_so_id" model="ir.actions.report">
+            <field name="name">Document SO</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">report.report_so_form</field>
+            <field name="report_file">report.report_so_form</field>
+            <field name="print_report_name">('Document so - %s' % (object.name))</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="report.paperformat_A4_Zero_Margin_report_so"/>
+        </record>
+
+    </data>
+</odoo>

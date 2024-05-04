@@ -1,0 +1,1461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_account_form">
+            <t t-set="num_page" t-value="4"/>
+            <t t-set="num_page_count" t-value="0"/>
+            <t t-foreach="range(num_page)" t-as="num">
+                <t t-set="num_page_count" t-value="num_page_count + 1"/>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <t t-set="sale_id" t-value="o.get_sale_order(o.id)"/>
+                        <div class="header">
+                            <t t-if="num_page_count == 1">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #4B0082;
+                                    }
+                                    .bg-color{
+                                    background-color: #DDA0DD;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #4B0082;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #4B0082;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #4B0082;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #4B0082;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#9932CC;
+                                    }
+                                    .color-b{
+                                    color:#9932CC;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 2">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #006400;
+                                    }
+                                    .bg-color{
+                                    background-color: #90EE90;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #006400;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #006400;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #006400;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #006400;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#008000;
+                                    }
+                                    .color-b{
+                                    color:#008000;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 3">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #8B0000;
+                                    }
+                                    .bg-color{
+                                    background-color: #FFA07A;
+                                    }
+                                    table.table-bordered-b {
+                                    border:1px solid #8B0000;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #8B0000;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #8B0000;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #8B0000;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#B22222;
+                                    }
+                                    .color-b{
+                                    color:#B22222;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 4">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #00008B;
+                                    }
+                                    .bg-color{
+                                    background-color: #E0FFFF;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #00008B;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #00008B;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #00008B;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #00008B;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#0000CD;
+                                    }
+                                    .color-b{
+                                    color:#0000CD;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <table width="100%" class="table-nobordered-b color-text">
+                                <tr>
+                                    <td colspan="3" style="text-align: right; font-size: 9px;">
+                                        <t t-if="num_page_count == 1">
+                                            <span >(เอกสารออกเป็นชุด)</span>
+                                            <br/>
+                                            <span style="color:White">ไม่ใช่ใบกำกับภาษี</span>
+                                        </t>
+                                        <t t-elif="num_page_count != 1">
+                                            <span>(เอกสารออกเป็นชุด)</span>
+                                            <br/>
+                                            <span>ไม่ใช่ใบกำกับภาษี</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td width="40%" style="text-align: left;">
+                                        <table width="100%" style="font-size: 14px; " class="table-nobordered-b color-text">
+                                            <tr>
+                                                <td style="font-size: 16px; font-weight: bold;">
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>บริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด (สำนักงานใหญ่)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>44/1 หมู่ที่ 6 ตำบลบางกระทึก อำเภอสามพราน</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>จังหวัดนครปฐม 73210</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>เลขประจำตัวผู้เสียภาษี 0-9155-62000-18-2</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>โทรศัพท์ : 097-1616918 / 082-6346394</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>อีเมลล์ Sbbed.sale@gmail.com</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="18%" style=" text-align: center ; vertical-align: top;">
+                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:180px; max-width:200px;  border:1px" alt="Logo"/>
+                                    </td>
+                                    <td width="44%" style="text-align: right;">
+                                        <table width="100%" style="font-size: 14px; " class="table-nobordered-b color-text">
+                                            <tr>
+                                                <td style="font-size: 16px; font-weight: bold;">
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>3 Tigers Engineering Co.,Ltd. (Head Office)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>44/1 Village No.6, Bangkrateuk Sub-district,</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>Sam phran District, Nakhon Pathom Province 73210</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>Tax identification number. 0-9155-62000-18-2</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>Telephone : 097-1616918 / 082-6346394</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td >
+                                                    <!--                                                <span t-field="o.company_id.name"/>-->
+                                                    <span>Email : Sbbed.sale@gmail.com</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" style="font-size: 26px; text-align: center ; vertical-align: middle; font-weight: bold; " class="table-bordered-b color-text bg-color">
+                                <tr>
+                                    <td width="80%">
+                                        <t t-if="num_page_count == 1">
+                                            <span>ต้นฉบับใบกำกับภาษี/ ใบแจ้งหนี้/ ใบส่งสินค้า </span><br/>
+                                            <span style="font-size: 15px;">ORIGINAL TAX INVOICE/ INVOICE/ DELIVERY ORDER</span>
+                                        </t>
+                                        <t t-elif="num_page_count != 1">
+                                            <span>สำเนาฉบับใบกำกับภาษี/ ใบแจ้งหนี้/ ใบส่งสินค้า </span><br/>
+                                            <span style="font-size: 15px;">COPY TAX INVOICE/ INVOICE/ DELIVERY ORDER</span>
+                                        </t>
+
+                                    </td>
+                                    <td width="20%">
+                                        <t t-if="num_page_count == 1">
+                                            <span>ลูกค้า</span><br/>
+                                            <span style="font-size: 15px;">CUSTOMER</span>
+                                        </t>
+                                        <t t-elif="num_page_count == 2">
+                                            <span>ลูกค้า</span><br/>
+                                            <span style="font-size: 15px;">CUSTOMER</span>
+                                        </t>
+                                        <t t-elif="num_page_count == 3">
+                                            <span>บัญชี</span><br/>
+                                            <span style="font-size: 15px;">ACCOUNT</span>
+                                        </t>
+                                        <t t-elif="num_page_count == 4">
+                                            <span>บริษัท</span><br/>
+                                            <span style="font-size: 15px;">COMPANY</span>
+                                        </t>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <div class="div-color" style="padding:2px;">
+                                <table width="100%" style=" vertical-align: middle; " class="table-nobordered-b">
+                                    <tr>
+                                        <td width="10%" class="color-b name-th">
+                                            <span>ชื่อลูกค้า</span>
+                                        </td>
+                                        <td width="55%" rowspan="2">
+                                            <div class="word-wrap name-show" style="width: 500px;">
+                                                <span t-field="o.partner_id.name"/>
+                                            </div>
+
+                                        </td>
+                                        <td width="5%" class="color-b name-th">
+                                            <span>เลขที่</span>
+                                        </td>
+                                        <td width="25%" colspan="2" rowspan="2" class="name-show">
+                                            <span t-field="o.name"/>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%" class="color-b name-eng">
+                                            <span>Customer Name.</span>
+                                        </td>
+
+                                        <td width="5%" class="color-b name-eng" >
+                                            <span>No.</span>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td width="10%" class="color-b name-th">
+                                            <span>ที่อยู่</span>
+                                        </td>
+                                        <td width="45%" rowspan="4">
+                                            <div class="word-wrap name-show" style="width: 500px;">
+                                                <span t-field="o.partner_id.street"/>
+                                            </div>
+
+
+                                        </td>
+                                        <td width="5%" class="color-b name-th">
+                                            <span>วันที่</span>
+                                        </td>
+                                        <td width="25%" colspan="2" rowspan="2" class="name-show">
+                                            <span t-esc="o.create_date.strftime('%d / %b / %Y')"/>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%" class="color-b name-eng">
+                                            <span>Address.</span>
+                                        </td>
+
+                                        <td width="5%" class="color-b name-eng">
+                                            <span>Date.</span>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td width="10%" class="color-b name-show" >
+
+                                        </td>
+
+                                        <td width="15%" colspan="2" class="color-b name-th" >
+                                            <span>เงื่อนไขการชำระเงิน</span>
+                                        </td>
+
+                                        <td width="15%" rowspan="2" class="name-show">
+                                            <span t-field="sale_id.payment_term_id.name"/>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%" class="color-b name-eng">
+
+                                        </td>
+
+                                        <td width="15%" colspan="2" class="color-b name-eng" >
+                                            <span>Term of payment.</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" style="vertical-align: middle; " class="table-nobordered-b">
+                                    <tr>
+                                        <td width="10%" class="color-b name-th">
+                                            <span>เบอร์โทรศัพท์</span>
+                                        </td>
+                                        <td width="25%" colspan="2" rowspan="2" class="name-show">
+                                            <span t-field="o.partner_id.phone"/>
+                                        </td>
+                                        <td width="10%"  class="color-b name-th">
+                                            <span>ชื่อผู้ติดต่อ</span>
+                                        </td>
+                                        <td width="20%" rowspan="2" class="name-show">
+                                            <span t-field="sale_id.contact_id1.name"/>
+                                        </td>
+                                        <td width="15%" class="color-b name-th">
+                                            <span>วันครบกำหนด</span>
+                                        </td>
+                                        <td width="15%" colspan="2" rowspan="2" class="name-show">
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="10%"  class="color-b name-eng">
+                                            <span>Tel.</span>
+                                        </td>
+
+                                        <td width="10%" class="color-b name-eng">
+                                            <span>Contact By.</span>
+                                        </td>
+                                        <td width="15%" class="color-b name-eng">
+                                            <span>Due date.</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%" colspan="2" class="color-b name-th">
+                                            <span>เลขประจำตัวผู้เสียภาษีอากร</span>
+                                        </td>
+                                        <td width="15%"  rowspan="2" class="name-show">
+                                            <span t-field="o.partner_id.vat"/>
+                                        </td>
+                                        <td width="10%"  class="color-b name-th">
+                                            <span>สาขา</span>
+                                        </td>
+                                        <td width="20%" rowspan="2" class="name-show">
+                                            <!--                                        <span t-field="sale_id.contact_id1.name"/>-->
+                                        </td>
+                                        <td width="15%" class="color-b name-th">
+                                            <span>พนักงานขาย</span>
+                                        </td>
+                                        <td width="15%" rowspan="2" class="name-show">
+                                            <span t-field="sale_id.user_id.name"/> <span>    </span><span t-field="sale_id.user_id.phone"/>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%" colspan="2" class="color-b  name-eng">
+                                            <span>Tax ID.</span>
+                                        </td>
+
+                                        <td width="10%" class="color-b name-eng">
+                                            <span>Branch No.</span>
+                                        </td>
+                                        <td width="15%" class="color-b name-eng">
+                                            <span>Sales person.</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+                        </div>
+                        <div class="page">
+                            <t t-if="num_page_count == 1">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #4B0082;
+                                    }
+                                    .bg-color{
+                                    background-color: #DDA0DD;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #4B0082;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #4B0082;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #4B0082;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #4B0082;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#9932CC;
+                                    }
+                                    .color-b{
+                                    color:#9932CC;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 2">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #006400;
+                                    }
+                                    .bg-color{
+                                    background-color: #90EE90;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #006400;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #006400;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #006400;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #006400;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#008000;
+                                    }
+                                    .color-b{
+                                    color:#008000;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 3">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #8B0000;
+                                    }
+                                    .bg-color{
+                                    background-color: #FFA07A;
+                                    }
+                                    table.table-bordered-b {
+                                    border:1px solid #8B0000;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #8B0000;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #8B0000;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #8B0000;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#B22222;
+                                    }
+                                    .color-b{
+                                    color:#B22222;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 4">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #00008B;
+                                    }
+                                    .bg-color{
+                                    background-color: #E0FFFF;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #00008B;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #00008B;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #00008B;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #00008B;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#0000CD;
+                                    }
+                                    .color-b{
+                                    color:#0000CD;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+
+
+                            <t t-set="max_body_height" t-value="240"/>
+                            <t t-set="new_line_height" t-value="2"/>
+                            <t t-set="row_line_height" t-value="7.9375"/> <!--- 30px = 7.9375 mm -->
+                            <t t-set="max_line_lenght" t-value="30"/>
+
+
+                            <t t-set="break_line" t-value="o.get_break_line(max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
+                            <t t-set="start" t-value="0"/>
+                            <t t-set="end" t-value="0"/>
+                            <t t-set="sum_seq" t-value="0"/>
+                            <t t-foreach="range(0,len(break_line),1)" t-as="x">
+                                <t t-set="a" t-value="0"/>
+                                <table style="height:170mm;" width="100%" class="table-bordered-b">
+                                    <thead class="color-text" style=" text-align:center  vertical-align: middle; font-weight: bold;">
+                                        <tr style="height:30px;">
+                                            <th width="4%"><span class="name-th">ลำดับ</span><br/><span class="name-eng">No</span></th>
+                                            <th width="60%"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>
+                                            <th width="5%"><span class="name-th">จำนวน</span><br/><span class="name-eng">Quantity</span></th>
+                                            <th width="5%"><span class="name-th">หน่วย</span><br/><span class="name-eng">Unit</span></th>
+                                            <th width="11%"><span class="name-th">ราคาต่อหน่วย</span><br/><span class="name-eng">Unit Price</span></th>
+                                            <th width="5%"><span class="name-th">ส่วนลด</span><br/><span class="name-eng">Dis.</span></th>
+                                            <th width="10%"><span class="name-th">ราคารวม</span><br/><span class="name-eng">Amount (THB)</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="name-show">
+                                        <t t-foreach="range(start,break_line[x],1)" t-as="y">
+                                            <t t-if="(y+1)!=(break_line[x])">
+                                                <t t-if="o.invoice_line_ids[y].product_id">
+                                                    <tr style="height:37px;">
+                                                        <td style="text-align:center">
+                                                            <div class="word-wrap">
+                                                                <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                <span t-esc="sum_seq"/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <!--                                                        <div class="word-wrap" style="width: 550px;  border: 1px solid #9400D3;">-->
+                                                            <!--                                                              <t t-set="a" t-value="len(o.invoice_line_ids[y].name)"/>-->
+                                                            <!--                                                            <span t-esc="a"/>-->
+                                                            <span t-field="o.invoice_line_ids[y].name"/>
+                                                            <!--                                                        </div>-->
+                                                        </td>
+                                                        <td  style="text-align:center">
+                                                            <span t-field="o.invoice_line_ids[y].quantity"/>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <span t-field="o.invoice_line_ids[y].product_uom_id.name"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-field="o.invoice_line_ids[y].price_unit"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-field="o.invoice_line_ids[y].discount"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
+                                                        </td>
+
+                                                    </tr>
+                                                </t>
+
+                                            </t>
+                                            <t t-if="(y+1)==(break_line[x])">
+                                                <t t-if="o.invoice_line_ids[y].product_id">
+                                                    <tr>
+                                                        <td style="text-align:center">
+                                                            <div class="word-wrap">
+                                                                <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                <span t-esc="sum_seq"/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <!--                                                        <div class="word-wrap" style="width: 550px;  border: 1px solid #9400D3;">-->
+                                                            <!--                                                              <t t-set="a" t-value="len(o.invoice_line_ids[y].name)"/>-->
+                                                            <!--                                                            <span t-esc="a"/>-->
+                                                            <span t-field="o.invoice_line_ids[y].name"/>
+                                                            <!--                                                        </div>-->
+                                                        </td>
+                                                        <td  style="text-align:center">
+                                                            <span t-field="o.invoice_line_ids[y].quantity"/>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <span t-field="o.invoice_line_ids[y].product_uom_id.name"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-field="o.invoice_line_ids[y].price_unit"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-field="o.invoice_line_ids[y].discount"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                                <t t-set="end" t-value="(break_line[x])"/>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="color-b name-th" colspan="4" rowspan="5" style="vertical-align: top; text-align:center">
+                                                <span>ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
+                                            </td>
+                                            <td align="right" colspan="2" class="color-text name-th">
+                                                <span>รวมเงิน / Sub Total :</span>
+
+                                            </td>
+                                            <td align="right" class="name-show">
+                                                <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_untaxed))"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="2" class="color-text name-th">
+                                                <span>หัก ส่วนลด / Discount :</span>
+
+                                            </td>
+                                            <td align="right" class="name-show">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="2" class="color-text name-th">
+                                                <span>หัก เงินมัดจำ / Deposit :</span>
+                                            </td>
+                                            <td align="right" class="name-show">
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="2" class="color-text name-th">
+                                                <span>เงินคงเหลือ / Total  :</span>
+                                            </td>
+                                            <td align="right" class="name-show">
+                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td align="right" colspan="2" class="color-text name-th" >
+                                                <span>ภาษีมูลค่าเพิ่ม / VAT 7% :</span>
+                                            </td>
+                                            <td align="right" class="name-show">
+                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                               <td colspan="4"  class="name-th" align="center" style="vertical-align: middle;">
+                                                <t t-if="end ==(break_line[len(break_line)-1])">
+                                                    <strong>(<span t-esc="o.baht_text(o.amount_total)"/>)</strong>
+                                                </t>
+                                            </td>
+                                            <td align="right" colspan="2" class="color-text name-th" >
+                                                <span>จำนวนเงินทั้งสิ้น / </span><br/><span>Grand Total :</span>
+                                            </td>
+                                            <td align="right" class="name-show" style="vertical-align: middle;">
+                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+
+                                    <!--</tfoot>-->
+                                    <!--if using tfoot it will help to continue the table -->
+
+                                    <t t-set="start" t-value="break_line[x]"/>
+                                    <p style="page-break-after:always;"/>
+                                </table>
+                            </t>
+                        </div>
+                        <div class="footer">
+                             <t t-if="num_page_count == 1">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #4B0082;
+                                    }
+                                    .bg-color{
+                                    background-color: #DDA0DD;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #4B0082;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #4B0082;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #4B0082;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #4B0082;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#9932CC;
+                                    }
+                                    .color-b{
+                                    color:#9932CC;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 2">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #006400;
+                                    }
+                                    .bg-color{
+                                    background-color: #90EE90;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #006400;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #006400;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #006400;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #006400;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#008000;
+                                    }
+                                    .color-b{
+                                    color:#008000;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 3">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #8B0000;
+                                    }
+                                    .bg-color{
+                                    background-color: #FFA07A;
+                                    }
+                                    table.table-bordered-b {
+                                    border:1px solid #8B0000;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #8B0000;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #8B0000;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #8B0000;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#B22222;
+                                    }
+                                    .color-b{
+                                    color:#B22222;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <t t-elif="num_page_count == 4">
+                                <style>
+                                    .div-color{
+                                    border:1px solid #00008B;
+                                    }
+                                    .bg-color{
+                                    background-color: #E0FFFF;
+                                    }
+
+                                    table.table-bordered-b {
+                                    border:1px solid #00008B;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                                    border:1px solid #00008B;
+                                    vertical-align: middle;
+                                    text-align:center;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:0px solid White;
+                                    border-left: 1px solid #00008B;
+                                    padding:3px;
+                                    }
+                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid #00008B;
+                                    padding:3px;
+                                    }
+
+                                    table.table-nobordered-b{
+                                    border-collapse: collapse;
+                                    margin:0px;
+                                    width: 100%;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                                    border-top: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    text-align: center;
+                                    <!--border:1px solid white;-->
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                                    border:1px solid white;
+                                    padding:1px;
+                                    }
+                                    .color-text{
+                                    color:#0000CD;
+                                    }
+                                    .color-b{
+                                    color:#0000CD;
+                                    font-weight: bold;
+                                    }
+                                    .word-wrap{ word-wrap:break-word;}
+                                    .name-th{
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+                                    .name-eng{
+                                    font-size: 9px;
+                                    <!--                              line-height: 7px;-->
+                                    }
+                                    .name-show{
+                                    color:#1E90FF;
+                                    font-size: 12px;
+                                    <!--                              line-height: 10px;-->
+                                    }
+
+                                </style>
+                            </t>
+                            <table width="100%" class="table-bordered-b color-text" >
+                                <tr>
+                                    <td width="33.3%" align="center">
+                                        <span class="name-th">ได้รับสินค้าตามรายการถูกต้องเรียบร้อยแล้ว</span>
+                                        <br/>
+                                        <span class="name-eng">Received the correct product according to the list</span>
+                                        <div style="height:20mm;"/>
+                                        <span class="name-th">ผู้รับสินค้า / Received By</span>
+                                        <br/>
+                                        <br/>
+                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                    </td>
+                                    <td width="33.3%" align="center">
+                                        <span class="name-th" style="color:white">กด </span>
+                                        <br/>
+                                        <span class="name-eng" style="font-size:11px; color:white">ok </span>
+                                        <div style="height:20mm;"/>
+                                        <span class="name-th">ผู้ส่งสินค้า / Delivery By</span>
+                                        <br/>
+                                        <br/>
+                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                    </td>
+                                    <td width="33.3%" align="center">
+                                        <span class="name-th">ในนามบริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด</span>
+                                        <br/>
+                                        <span class="name-eng">For 3 Tigers Engineering Co.,Ltd.</span>
+                                        <div style="height:20mm;"/>
+                                        <span class="name-th">ผู้มีอำนาจลงนาม / Authorized Signature</span>
+                                        <br/>
+                                        <br/>
+                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="paperformat_A4_Zero_Margin_report_account" model="report.paperformat">
+            <field name="name">A4_Zero_Margin_report_account</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">110</field>
+            <field name="margin_bottom">50</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">105</field>
+            <field name="dpi">96</field>
+        </record>
+
+        <record id="report_so_id" model="ir.actions.report">
+            <field name="name">Document account</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">report.report_account_form</field>
+            <field name="report_file">report.report_account_form</field>
+            <field name="print_report_name">('Document account - %s' % (object.name))</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="report.paperformat_A4_Zero_Margin_report_account"/>
+        </record>
+
+    </data>
+</odoo>

@@ -12,8 +12,10 @@
     'data': [
         'views/po_report.xml',
         'views/so_report.xml',
+        'views/so_doc_report.xml',
     ],
     'qweb': [],
+    "images":['static/description/report_so.png',],
     "license": "LGPL-3",
     "installable": True,
     "application": True,

@@ -3,6 +3,8 @@ from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 from odoo.addons.web.controllers.utils import ensure_db
 from bahttext import bahttext
+
+
 # from num2words import num2words
 
 class SaleOrder(models.Model):
@@ -10,20 +12,17 @@ class SaleOrder(models.Model):
 
     contact_phone1 = fields.Char(string='Contact phone')
     shipping_cost = fields.Many2one('shipping.cost', string='Shipping Cost')
-    discount_total = fields.Monetary(string='Discount Total',compute='_compute_discount_total')
+    discount_total = fields.Monetary(string='Discount Total', compute='_compute_discount_total')
     contact_id1 = fields.Many2one('res.partner', string='Contact Name', domain=[])
 
     @api.onchange('partner_id')
     def _on_partner_change_filter_contacts(self):
-        if self.partner_id:
-            domain = [
-                ('parent_id.id', '=', self.partner_id.id),
-                ('type', '=', 'contact'),
-                ('company_type', '=', 'person')
-            ]
-            return {'domain': {'contact_id1': domain}}
-        else:
-            return {'domain': {'contact_id1': []}}
+        domain = [
+            ('parent_id.id', '=', self.partner_id.id),
+            ('type', '=', 'contact'),
+            ('company_type', '=', 'person')
+        ]
+        return {'domain': {'contact_id1': domain}}
 
     @api.onchange('contact_id1')
     def _onc_domain_contact_phone(self):
@@ -38,7 +37,6 @@ class SaleOrder(models.Model):
         for i in self:
             if i.order_line:
                 for obj_line in i.order_line:
-
                     i.discount_total += (obj_line.price_unit * (obj_line.discount / 100) * obj_line.product_uom_qty)
             else:
                 i.discount_total = 0

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <data>
-        <template id="tiger_report_so_form">
+    <template id="report_so1">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
 
@@ -69,17 +68,20 @@
                             border:1px solid white;
                             padding:0px;
                             }
+                             .wht{
+                          color:white;
+                            }
                         </style>
 
                         <table width="100%" class="table-nobordered-b" style="font-size: 16px; vertical-align: middle; ">
                             <tr>
                                 <td width="15%" style="">
-                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:120px; max-width:120px;" alt="Logo"/>
+<!--                                    <img t-if="o.company_id.logo"  style="max-height:120px; max-width:120px;" alt="Logo"/>-->
                                     <!--                              <img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height:120px; max-width:120px;" alt="Logo"/>-->
 
                                 </td>
                                 <td width="75%" style="text-align:left;">
-                                    <table width="100%" class="table-nobordered-b" style=" vertical-align: middle;">
+                                    <table width="100%" class="table-nobordered-b wht" style=" vertical-align: middle;">
                                         <tr>
                                             <td style="font-size: 22px; font-weight: bold;">
                                                 <span t-field="o.company_id.name_th" /><br/>
@@ -121,26 +123,26 @@
                         </table>
                         <table width="100%" class="table-nobordered-b" style="font-size: 16px; vertical-align: middle; ">
                             <tr>
-                                <td style="border-top: 1px solid #000;"/>
+<!--                                <td style="border-top: 1px solid #000;"/>-->
                             </tr>
                             <tr>
-                                <td style="text-align:center;">
+                                <td class="wht" style="text-align:center;">
                                     <span style=" font-size: 24px; font-weight: bold; text-align: center;">ใบเสนอราคา / Quotation</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="border-top: 1px solid #000;"/>
+<!--                                <td style="border-top: 1px solid #000;"/>-->
                             </tr>
                         </table>
                         <table width="100%" class="table-nobordered-b" style="font-size: 14px; vertical-align: middle; ">
                             <tr>
-                                <td width="13%" style=" font-weight: bold;" >
+                                <td  class="wht" width="13%" style=" font-weight: bold;" >
                                     <span>ลูกค้า/ Customer :&amp;nbsp;</span>
                                 </td>
                                 <td width="46%" >
                                     <span t-field="o.partner_id.name"/>
                                 </td>
-                                <td width="25%" style="text-align:right; font-weight: bold;">
+                                <td  class="wht" width="25%" style="text-align:right; font-weight: bold;">
                                     <span>วันที่/ Date :&amp;nbsp;</span>
                                 </td>
                                 <td width="13%" >
@@ -149,7 +151,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="13%" rowspan="3" style=" font-weight: bold;vertical-align: top;" >
+                                <td  class="wht" width="13%" rowspan="3" style=" font-weight: bold;vertical-align: top;" >
                                     <span>ที่อยู่/ Address :&amp;nbsp;</span>
                                 </td>
                                 <td width="46%" rowspan="3" style="bold;vertical-align: top;">
@@ -157,7 +159,7 @@
                                         <span t-field="o.partner_id.street"/>
                                     </div>
                                 </td>
-                                <td width="25%" style="text-align:right;  font-weight: bold;">
+                                <td class="wht" width="25%" style="text-align:right;  font-weight: bold;">
                                     <span>เลขที่ใบเสนอราคา/ QT No :&amp;nbsp;</span>
                                 </td>
                                 <td width="13%" >
@@ -166,7 +168,7 @@
                             </tr>
                             <tr>
 
-                                <td width="25%" style="text-align:right; font-weight: bold;">
+                                <td  class="wht" width="25%" style="text-align:right; font-weight: bold;">
                                     <span>เงื่อนไขการชําระ/ Payment Terms :&amp;nbsp;</span>
                                 </td>
                                 <td width="13%" >
@@ -175,7 +177,7 @@
                             </tr>
                             <tr>
 
-                                <td width="21%" style="text-align:right; font-weight: bold;">
+                                <td  class="wht" width="21%" style="text-align:right; font-weight: bold;">
                                     <span>ค่าจัดส่ง/ Shipping cost :&amp;nbsp;</span>
                                 </td>
                                 <td width="13%" >
@@ -185,13 +187,13 @@
                         </table>
                         <table width="100%" class="table-nobordered-b" style="font-size: 14px; vertical-align: middle; ">
                             <tr>
-                                <td width="25%" style=" font-weight: bold;">
+                                <td  class="wht" width="25%" style=" font-weight: bold;">
                                     <span>เลขประจำตัวผู้เสียภาษี/ Tax ID :&amp;nbsp;</span>
                                 </td>
                                 <td width="15%" >
                                     <span t-field="o.partner_id.vat"/>
                                 </td>
-                                <td width="10%" style="text-align:right; font-weight: bold;">
+                                <td  class="wht" width="10%" style="text-align:right; font-weight: bold;">
                                     <span>โทร/ Tel :&amp;nbsp;</span>
                                 </td>
                                 <td width="10%" colspan="3">
@@ -202,7 +204,7 @@
                             <tr>
 
 
-                                <td width="20%" style=" font-weight: bold;vertical-align: top;">
+                                <td  class="wht" width="20%" style=" font-weight: bold;vertical-align: top;">
                                     <span>สถานที่จัดส่ง/ Delivery Location :&amp;nbsp;</span>
                                 </td>
                                 <td colspan="5" rowspan="2" style="vertical-align: top;">
@@ -680,9 +682,8 @@
                 </t>
             </t>
         </template>
-
-        <record id="paperformat_A4_Zero_Margin_tiger_report_so" model="report.paperformat">
-            <field name="name">A4_Zero_Margin_tiger_report_so</field>
+    <record id="paperformat_A4_Zero_Margin_tiger_report_so1" model="report.paperformat">
+       <field name="name">A4_Zero_Margin_tiger_report_so1</field>
             <field name="default" eval="False"/>
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
@@ -693,28 +694,17 @@
             <field name="header_line" eval="False"/>
             <field name="header_spacing">5</field>
             <field name="dpi">96</field>
-        </record>
-
-        <!--        <report-->
-        <!--                id="report_so_form"-->
-        <!--                model="sale.order"-->
-        <!--                menu="True"-->
-        <!--                report_type="qweb-pdf"-->
-        <!--                string="Document SO"-->
-        <!--                paperformat="tiger_report_all.paperformat_A4_Zero_Margin_tiger_report_so"-->
-        <!--                name="tiger_report_all.tiger_report_so_form"-->
-        <!--                file="tiger_report_all.tiger_report_so_form"-->
-        <!--        />-->
-        <record id="report_so_form" model="ir.actions.report">
-            <field name="name">Document SO</field>
-            <field name="model">sale.order</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">tiger_report_all.tiger_report_so_form</field>
-            <field name="report_file">tiger_report_all.tiger_report_so_form</field>
-            <field name="print_report_name">'Document SO - %s' % (object.name)</field>
-            <field name="binding_model_id" ref="sale.model_sale_order"/>
-            <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="tiger_report_all.paperformat_A4_Zero_Margin_tiger_report_so"/>
-        </record>
-    </data>
+    </record>
+    <record id="report_so1_form" model="ir.actions.report">
+        <field name="name">Document SO1</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">tiger_report_all.report_so1</field>
+        <field name="report_file">tiger_report_all.report_so1</field>
+        <field name="print_report_name">'report_so1  - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="tiger_report_all.paperformat_A4_Zero_Margin_tiger_report_so1"/>
+    </record>
 </odoo>
+
