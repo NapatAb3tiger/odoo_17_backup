@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_account_order_new" model="ir.ui.view">
+        <field name="name">account.move.new</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+
+                    <field name="name_account_th" />
+
+            </field>
+        </field>
+    </record>
+
+</odoo>

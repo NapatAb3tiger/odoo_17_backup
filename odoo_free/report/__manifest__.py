@@ -17,6 +17,7 @@
 
         'report/so_report.xml',
         'report/account_report.xml',
+        'report/payment_report.xml',
     ],
     'qweb': [],
     "installable": True,

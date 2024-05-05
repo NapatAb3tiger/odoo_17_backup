@@ -8,8 +8,12 @@ from odoo.osv import expression
 from odoo.tools import email_re
 
 
-class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+class AccountMove(models.Model):
+    _inherit = 'account.payment'
+
+    def set_account_move(self, name):
+        sale_master = self.env['account.move'].search([('name', '=', name)], limit=1)
+        return sale_master
 
     def get_lines(self, data, max_line):
         # this function will count number of \n
@@ -40,11 +44,13 @@ class SaleOrder(models.Model):
             line_count = line_count * 0.8
         return line_count
 
-    def get_break_line(self, max_body_height, new_line_height, row_line_height, max_line_lenght):
+    def get_break_line(self, account, max_body_height, new_line_height, row_line_height, max_line_lenght):
         break_page_line = []
         count_height = 0
         count = 1
-        for line in self.order_line:
+        print('====account',account)
+        print('====account.invoice_line_ids',account.invoice_line_ids)
+        for line in account.invoice_line_ids:
             line_name = self.get_lines(line.name, max_line_lenght)
             # remove by row height to line
             # line_height = row_line_height + ((self.get_line(line.name, max_line_lenght)) * new_line_height)
