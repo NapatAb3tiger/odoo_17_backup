@@ -472,7 +472,7 @@
                                             <span>เลขที่</span>
                                         </td>
                                         <td width="25%" colspan="2" rowspan="2" class="name-show">
-                                            <span t-field="o.name"/>
+                                            <span t-field="o.name_account_th"/>
 
                                         </td>
                                     </tr>

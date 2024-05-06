@@ -304,7 +304,7 @@
                                             <span>เลขที่</span>
                                         </td>
                                         <td width="25%" colspan="2" rowspan="2" class="name-show">
-                                            <span t-field="o.name"/>
+                                            <span t-field="o.name_account_th"/>
 
                                         </td>
                                     </tr>
@@ -443,7 +443,7 @@
 
                         </div>
                         <div class="page">
-                               <t t-if="num_page_count == 1">
+                            <t t-if="num_page_count == 1">
                                 <style>
                                     .div-color{
                                     border:1px solid #FF8C00;
@@ -697,12 +697,13 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td class="color-b name-th" colspan="4" rowspan="5" style="vertical-align: top; text-align:center">
-                                                <span>ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
+                                            <td class="color-b name-th" colspan="4" rowspan="3" style="vertical-align: top; ">
+                                                <span style="text-align:center;">ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
+                                                <br/>
+                                                <span class="color-text name-th" style="text-align:left">อ้างอิง / Ref.</span>
                                             </td>
                                             <td align="right" colspan="2" class="color-text name-th">
                                                 <span>รวมเงิน / Sub Total :</span>
-
                                             </td>
                                             <td align="right" class="name-show">
                                                 <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(account.amount_untaxed))"/>
@@ -711,12 +712,12 @@
                                         <tr>
                                             <td align="right" colspan="2" class="color-text name-th">
                                                 <span>หัก ส่วนลด / Discount :</span>
-
                                             </td>
                                             <td align="right" class="name-show">
                                             </td>
                                         </tr>
                                         <tr>
+
                                             <td align="right" colspan="2" class="color-text name-th">
                                                 <span>หัก เงินมัดจำ / Deposit :</span>
                                             </td>
@@ -725,6 +726,22 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td colspan="4" rowspan="2">
+                                                <table width="100%"  class="table-nobordered-b color-b name-th" >
+                                                    <tr>
+                                                        <td width="60%">
+                                                            <span>ยอดคงค้าง / Outstanding balance :</span>
+                                                        </td>
+                                                        <td width="30%" class="name-show">
+
+                                                        </td>
+                                                        <td width="10%">
+                                                            <span>บาท / Baht</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                 <span class="color-text name-th" style="color-text name-th">กำหนดชำระ / Payment due :</span>
+                                            </td>
                                             <td align="right" colspan="2" class="color-text name-th">
                                                 <span>เงินคงเหลือ / Total  :</span>
                                             </td>
@@ -765,7 +782,7 @@
                             </t>
                         </div>
                         <div class="footer">
-                                <t t-if="num_page_count == 1">
+                           <t t-if="num_page_count == 1">
                                 <style>
                                     .div-color{
                                     border:1px solid #FF8C00;
@@ -919,37 +936,91 @@
                             </t>
                             <table width="100%" class="table-bordered-b color-text" >
                                 <tr>
-                                    <td width="33.3%" align="center">
-                                        <span class="name-th">ได้รับสินค้าตามรายการถูกต้องเรียบร้อยแล้ว</span>
-                                        <br/>
-                                        <span class="name-eng">Received the correct product according to the list</span>
-                                        <div style="height:20mm;"/>
-                                        <span class="name-th">ผู้รับสินค้า / Received By</span>
-                                        <br/>
-                                        <br/>
-                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
-                                    </td>
-                                    <td width="33.3%" align="center">
-                                        <span class="name-th" style="color:white">กด </span>
-                                        <br/>
-                                        <span class="name-eng" style="font-size:11px; color:white">ok </span>
-                                        <div style="height:20mm;"/>
-                                        <span class="name-th">ผู้ส่งสินค้า / Delivery By</span>
-                                        <br/>
-                                        <br/>
-                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
-                                    </td>
-                                    <td width="33.3%" align="center">
-                                        <span class="name-th">ในนามบริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด</span>
-                                        <br/>
-                                        <span class="name-eng">For 3 Tigers Engineering Co.,Ltd.</span>
-                                        <div style="height:20mm;"/>
-                                        <span class="name-th">ผู้มีอำนาจลงนาม / Authorized Signature</span>
-                                        <br/>
-                                        <br/>
-                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
-                                    </td>
+                                    <td colspan="2">
+                                        <table width="100%" class="table-nobordered-b color-text">
+                                            <tr>
+                                                <td width="15%" rowspan="2" class="color-b name-th">
+                                                    <span>ชำระโดย/ Payment</span>
+                                                </td>
+                                                <td width="15%" class="color-text name-th">
+                                                    <t t-if="o.journal_id == 'Cash'">
+                                                        <span>☑</span><span> เงินสด / Cash</span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>◻</span><span> เงินสด / Cash</span>
+                                                    </t>
+                                                </td>
+                                                <td width="10%" class="color-text name-th">
+                                                    <t t-if="o.journal_id == 'Cheque'">
 
+                                                        <span>☑</span><span> เช็ค / Cheque</span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>◻</span><span> เช็ค / Cheque</span>
+                                                    </t>
+                                                </td>
+                                                <td width="10%" class="color-text name-th" style="text-align:right">
+                                                    <span>ธนาคาร/ Bank</span>
+                                                </td>
+                                                <td width="15%">
+
+                                                </td>
+                                                <td width="10%" class="color-text name-th" style="text-align:right">
+                                                    <span>สาขา/ Branch</span>
+                                                </td>
+                                                <td width="15%">
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="15%" class="color-text name-th">
+                                                    <t t-if="o.journal_id == 'Bank'">
+                                                        <span>☑</span><span> เงินโอน / Transfer </span>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>◻</span><span> เงินโอน / Transfer </span>
+                                                    </t>
+                                                </td>
+                                                <td width="20%" colspan="2" class="color-text name-th" style="text-align:right">
+                                                    <span>เลขที่เช็ค/ Cheque No.</span>
+                                                </td>
+                                                <td width="15%">
+
+                                                </td>
+                                                <td width="10%" class="color-text name-th" style="text-align:right">
+                                                    <span>ลงวันที่/ Date</span>
+                                                </td>
+                                                <td width="15%">
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr class="div-color">
+                                    <td width="61%">
+                                        <span  class="name-th">ในกรณีที่ชำระเป็นเช็ค ใบเสร็จฉบับนี้จะสมบูรณ์ก็ต่อเมื่อบริษัทฯ เรียกเก็บเงินจากธนาคารได้แล้ว </span>
+                                        <br/>
+                                        <span  class="name-th">If payment by check This receipt will be complete only when the company Collected money from the bank.</span>
+                                        <br/>
+                                        <span  class="name-th">- โปรดสั่งจ่ายเช็คขีดคร่อมในนาม "บริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด</span>
+                                        <br/>
+                                        <span  class="name-th">Please make payment by crossed cheque payable to "3 Tigers Engineering Co.,Ltd."</span>
+                                        <br/>
+                                        <span  class="name-th">-ธนาคาร ไทยพาณิชย์ / เลขที่ 160-426829-2 / ชื่อบัญชี บริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด</span>
+                                        <br/>
+                                        <span  class="name-th">Bank : SCB / Account Number : 160-426829-2 / Account Name : 3 Tigers Engineering Co.,Ltd.</span>
+                                    </td>
+                                    <td width="39%"  style="text-align:center">
+                                        <span class="name-th">ในนามบริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด / </span><span style=" font-size: 10px;">For 3 Tigers Engineering Co.,Ltd.</span>
+                                        <br/>
+                                        <div style="height:10mm;"/>
+                                        <span class="name-th">ผู้รับเงิน / Payee</span>
+                                        <br/>
+
+                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
+
+                                    </td>
                                 </tr>
                             </table>
                         </div>
