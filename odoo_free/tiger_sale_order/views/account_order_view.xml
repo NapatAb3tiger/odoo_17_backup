@@ -4,11 +4,20 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
-            <field name="name" position="after">
+            <header>
+                <button name="button_create_billing_note"  class="oe_highlight" type="object" string="Create Billing Note" invisible="billing_note_name != False" />
+            </header>
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <span class="o_form_label">Name Account TH</span>
+                <h1>
+                    <field name="name_account_th" readonly="1"/>
+                </h1>
+                <span class="o_form_label"> Billing Note TH</span>
+                <h1>
+                    <field name="billing_note_name" readonly="1"/>
+                </h1>
+            </xpath>
 
-                    <field name="name_account_th" />
-
-            </field>
         </field>
     </record>
 

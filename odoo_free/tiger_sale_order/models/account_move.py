@@ -24,6 +24,21 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = "account.move"
     name_account_th = fields.Char(string='Name Account TH')
+    billing_note_name = fields.Char(string='Name Billing Note TH')
+    create_billing_note_date = fields.Date(string='Cheque Date')
+
+    def button_create_billing_note(self):
+        self.billing_note_name = self.env['ir.sequence'].next_by_code('account.move')
+        print('===========self.billing_note_name', self.billing_note_name)
+        new_name = ""
+        time_to = (fields.Datetime.now().year + 543) % 100
+        new_name = str(self.billing_note_name).split('X')
+
+        self.billing_note_name = str(new_name[0]) + str(time_to) + str(new_name[1])
+        self.create_billing_note_date = fields.Datetime.now()
+
+        print('===========self.billing_note_name', self.billing_note_name)
+
 
     @api.depends('posted_before', 'state', 'journal_id', 'date', 'move_type', 'payment_id')
     def _compute_name(self):
@@ -34,7 +49,7 @@ class AccountMove(models.Model):
                 continue
             move_has_name = move.name and move.name != '/'
             if move_has_name or move.state != 'posted':
-                print('====move.name',move.name)
+                print('====move.name', move.name)
                 if not move.posted_before and not move._sequence_matches_date():
                     print('====move.name1', move.name)
                     if move._get_last_sequence():
@@ -45,7 +60,6 @@ class AccountMove(models.Model):
                 else:
                     print('====move.name2', move.name)
                     if move_has_name and move.posted_before or not move_has_name and move._get_last_sequence():
-
                         continue
             if move.date and (not move_has_name or not move._sequence_matches_date()):
                 print('====move.name3', move.name)
@@ -57,13 +71,13 @@ class AccountMove(models.Model):
         self._inverse_name()
         if self.name and self.name != 'Draft' and self.name != '/':
             new_name = self.name.split('/')
-            print('==new_name',new_name)
+            print('==new_name', new_name)
             name_01 = new_name[0].split('B')
-            print('==name_01',name_01)
+            print('==name_01', name_01)
             time_to = (fields.Datetime.now().year + 543) % 100
-            print('==time_to',time_to)
+            print('==time_to', time_to)
             month = "{:02d}".format(fields.Datetime.now().month)
-            print('==month',month)
+            print('==month', month)
             total_name = str(name_01[0] + 'B' + str(time_to) + name_01[1] + month + new_name[2])
             print('====total_name', total_name)
             self.name_account_th = total_name
@@ -112,7 +126,7 @@ class AccountMove(models.Model):
                 for field in registry.field_inverses[inverse_field[0]] if inverse_field else [None]:
                     self.env.add_to_compute(triggered_field, self[field.name] if field else self)
         while True:
-            print('======format_values',format_values)
+            print('======format_values', format_values)
             format_values['seq'] = format_values['seq'] + 1
             sequence = format_string.format(**format_values)
             try:

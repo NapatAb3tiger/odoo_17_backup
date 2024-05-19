@@ -16,6 +16,7 @@
     "data": [
 
         'report/so_report.xml',
+        'report/account_billing.xml',
         'report/account_report.xml',
         'report/payment_report.xml',
     ],
