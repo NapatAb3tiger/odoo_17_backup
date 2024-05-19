@@ -447,28 +447,14 @@
                                 <thead class="color-text" style=" text-align:center  vertical-align: middle; font-weight: bold;">
                                     <tr style="height:30px;">
                                         <th width="5%"><span class="name-th">ลำดับ</span><br/><span class="name-eng">No</span></th>
-                                        <th width="85%"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>
+                                        <th width="85%" colspan="2"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>
                                         <th width="10%"><span class="name-th">ราคารวม</span><br/><span class="name-eng">Amount (THB)</span></th>
                                     </tr>
                                 </thead>
                                 <tbody class="name-show">
                                     <t t-foreach="range(start,break_line[x],1)" t-as="y">
                                         <t t-if="(y+1)!=(break_line[x])">
-                                            <tr style="height:37px;">
-                                                <td style="text-align:center">
-                                                    <div class="word-wrap">
-                                                        <t t-set="sum_seq" t-value="sum_seq + 1"/>
-                                                        <span t-esc="sum_seq"/>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span t-field="o.name"/> <span>  /  </span>  <span t-field="sale_id.name"/>
-                                                </td>
-                                                <td style=" text-align:right">
-                                                    <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
-                                                    <t t-set="sum_total" t-value="sum_total + float(o.invoice_line_ids[y].price_subtotal)"/>
-                                                </td>
-                                            </tr>
+
                                         </t>
                                         <t t-if="(y+1)==(break_line[x])">
                                             <tr>
@@ -478,29 +464,28 @@
                                                         <span t-esc="sum_seq"/>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <span t-field="o.name"/> <span>  /  </span>  <span t-field="sale_id.name"/>
+                                                <td colspan="2">
+                                                    <span t-field="sale_id.name"/> <span>  /  </span> <span t-field="o.name"/>
                                                 </td>
                                                 <td style=" text-align:right">
-                                                    <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
-                                                    <t t-set="sum_total" t-value="sum_total + float(o.invoice_line_ids[y].price_subtotal)"/>
+                                                    <span t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
                                                 </td>
                                             </tr>
                                         </t>
                                     </t>
                                 </tbody>
                                 <tfoot>
-                                     <tr>
-                                        <td colspan="2"  class="name-show" align="center" style="vertical-align: middle;">
-                                            <t t-if="end ==(break_line[len(break_line)-1])">
+                                    <tr>
+                                        <td width="70%" colspan="2"  class="name-show" align="center" style="vertical-align: middle;">
+                                            <t>
                                                 <strong>(<span t-esc="o.baht_text(o.amount_total)"/>)</strong>
                                             </t>
                                         </td>
-                                        <td align="right" colspan="2" class="color-text name-th" >
+                                        <td width="20%" align="right"  class="color-text name-th" >
                                             <span>จำนวนเงินทั้งสิ้น / </span><br/><span>Grand Total :</span>
                                         </td>
-                                        <td align="right" class="name-show" style="vertical-align: middle;">
-                                            <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
+                                        <td width="10%" align="right" class="name-show" style="vertical-align: middle;">
+                                            <span t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -514,7 +499,106 @@
                         </t>
                     </div>
                     <div class="footer">
+                        <style>
+                            .div-color{
+                            border:1px solid #4B0082;
+                            }
+                            .bg-color{
+                            background-color: #DDA0DD;
+                            }
 
+                            table.table-bordered-b {
+                            border:1px solid #4B0082;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                            border:1px solid #4B0082;
+                            vertical-align: middle;
+                            text-align:center;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                            border:0px solid White;
+                            border-left: 1px solid #4B0082;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid #4B0082;
+                            padding:3px;
+                            }
+
+                            table.table-nobordered-b{
+                            border-collapse: collapse;
+                            margin:0px;
+                            width: 100%;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                            border-top: 1px solid black;
+                            border-bottom: 1px solid black;
+                            text-align: center;
+                            <!--border:1px solid white;-->
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            .color-text{
+                            color:#9932CC;
+                            }
+                            .color-b{
+                            color:#9932CC;
+                            font-weight: bold;
+                            }
+                            .word-wrap{ word-wrap:break-word;}
+                            .name-th{
+                            font-size: 12px;
+                            <!--                              line-height: 10px;-->
+                            }
+                            .name-eng{
+                            font-size: 9px;
+                            <!--                              line-height: 7px;-->
+                            }
+                            .name-show{
+                            font-size: 12px;
+                            <!--                              line-height: 10px;-->
+                            }
+
+                        </style>
+                        <table width="100%" class="table-bordered-b color-text" >
+                            <tr>
+
+                                <td width="50%" align="center">
+                                    <span class="name-th" style="color:white">กด </span>
+                                    <br/>
+                                    <span class="name-eng" style="font-size:11px; color:white">ok </span>
+                                    <div style="height:20mm;"/>
+                                    <span class="name-th">ผู้รับวางบิล / Bill Recipient</span>
+                                    <br/>
+                                    <br/>
+                                    <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                </td>
+                                <td width="50%" align="center">
+                                    <span class="name-th">ในนามบริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด</span>
+                                    <br/>
+                                    <span class="name-eng">For 3 Tigers Engineering Co.,Ltd.</span>
+                                    <div style="height:20mm;"/>
+                                    <span class="name-th">ผู้วางบิล / Bill Issuer</span>
+                                    <br/>
+                                    <br/>
+                                    <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                </td>
+
+                            </tr>
+                        </table>
                     </div>
                 </t>
             </t>
@@ -541,7 +625,7 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">report.report_account_bill_form</field>
             <field name="report_file">report.report_account_bill_form</field>
-            <field name="print_report_name">('Document Billing - %s' % (object.name))</field>
+            <field name="print_report_name">('Document Billing - %s' % (object.billing_note_name))</field>
             <field name="binding_model_id" ref="account.model_account_move"/>
             <field name="binding_type">report</field>
             <field name="paperformat_id" ref="report.paperformat_A4_Zero_Margin_report_account_bill"/>

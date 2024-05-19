@@ -1534,7 +1534,7 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">report.report_account_form</field>
             <field name="report_file">report.report_account_form</field>
-            <field name="print_report_name">('Document Account - %s' % (object.name))</field>
+            <field name="print_report_name">('Document Account - %s' % (object.name_account_th))</field>
             <field name="binding_model_id" ref="account.model_account_move"/>
             <field name="binding_type">report</field>
             <field name="paperformat_id" ref="report.paperformat_A4_Zero_Margin_report_account"/>

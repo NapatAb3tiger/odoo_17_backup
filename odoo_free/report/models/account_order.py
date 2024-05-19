@@ -12,7 +12,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     def get_sale_order(self,sale_order_id):
-        name_sale_master = self.env['account.move'].search([('order_id.id', '=', sale_order_id)], limit=1)
+        name_sale_master = self.env['account.move.line'].search([('move_id.id', '=', sale_order_id)], limit=1)
         sale_master = self.env['sale.order'].search([('name', '=', name_sale_master.sale_line_ids.order_id.name)], limit=1)
         return sale_master
 
