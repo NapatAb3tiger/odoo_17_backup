@@ -4,10 +4,6 @@
         <template id="report_so_form">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
-                    <t t-foreach="docs" t-as="o">
-                        <t t-call="web.basic_layout">
-                        </t>
-                    </t>
                     <div class="header">
                         <style>
                             .div-color{
@@ -85,7 +81,11 @@
                         </style>
                         <table width="100%" class="table-nobordered-b color-text">
                             <tr>
-                                <td colspan="3" style="text-align: right; font-size: 9px;">
+                                <td>
+                                    <span  style="font-size: 9px;">หน้า</span>
+                                    <span  style="font-size: 9px;" class="page"/><span style="font-size: 9px;"> / </span><span  style="font-size: 9px;" class="topage"/>
+                                </td>
+                                <td colspan="2" style="text-align: right; font-size: 9px;">
                                     <!--                                        <t t-if="num_page_count == 1">-->
                                     <!--                                            <span >(เอกสารออกเป็นชุด)</span>-->
                                     <!--                                            <br/>-->
@@ -187,34 +187,19 @@
                         <table width="100%" style="font-size: 26px; text-align: center ; vertical-align: middle; font-weight: bold; " class="table-bordered-b color-text bg-color">
                             <tr>
                                 <td width="80%">
-                                    <!--                                        <t t-if="num_page_count == 1">-->
-                                    <!--                                            <span>ต้นฉบับใบกำกับภาษี/ ใบแจ้งหนี้/ ใบส่งสินค้า </span><br/>-->
-                                    <!--                                            <span style="font-size: 15px;">ORIGINAL TAX INVOICE/ INVOICE/ DELIVERY ORDER</span>-->
-                                    <!--                                        </t>-->
-                                    <!--                                        <t t-elif="num_page_count != 1">-->
-                                    <!--                                            <span>สำเนาฉบับใบกำกับภาษี/ ใบแจ้งหนี้/ ใบส่งสินค้า </span><br/>-->
-                                    <!--                                            <span style="font-size: 15px;">COPY TAX INVOICE/ INVOICE/ DELIVERY ORDER</span>-->
-                                    <!--                                        </t>-->
+                                    <t t-if="o.state != 'sale'">
+                                        <span>ใบเสนอราคา</span><br/>
+                                        <span style="font-size: 15px;">Quotation</span>
+                                    </t>
+                                    <t t-elif="o.state == 'sale'">
+                                        <span>ใบสั่งขาย</span><br/>
+                                        <span style="font-size: 15px;">Sale Order</span>
+                                    </t>
 
                                 </td>
                                 <td width="20%">
-                                    <!--                                        <t t-if="num_page_count == 1">-->
-                                    <!--                                            <span>ลูกค้า</span><br/>-->
-                                    <!--                                            <span style="font-size: 15px;">CUSTOMER</span>-->
-                                    <!--                                        </t>-->
-                                    <!--                                        <t t-elif="num_page_count == 2">-->
-                                    <!--                                            <span>ลูกค้า</span><br/>-->
-                                    <!--                                            <span style="font-size: 15px;">CUSTOMER</span>-->
-                                    <!--                                        </t>-->
-                                    <!--                                        <t t-elif="num_page_count == 3">-->
-                                    <!--                                            <span>บัญชี</span><br/>-->
-                                    <!--                                            <span style="font-size: 15px;">ACCOUNT</span>-->
-                                    <!--                                        </t>-->
-                                    <!--                                        <t t-elif="num_page_count == 4">-->
-                                    <!--                                            <span>บริษัท</span><br/>-->
-                                    <!--                                            <span style="font-size: 15px;">COMPANY</span>-->
-                                    <!--                                        </t>-->
-
+                                    <span>ลูกค้า</span><br/>
+                                    <span style="font-size: 15px;">CUSTOMER</span>
                                 </td>
                             </tr>
                         </table>
@@ -288,7 +273,7 @@
                                     </td>
 
                                     <td width="15%" rowspan="2" class="name-show">
-                                        <span t-field="payment_term_id.name"/>
+                                        <span t-field="o.payment_term_id.name"/>
 
                                     </td>
                                 </tr>
@@ -314,13 +299,13 @@
                                         <span>ชื่อผู้ติดต่อ</span>
                                     </td>
                                     <td width="20%" rowspan="2" class="name-show">
-                                        <span t-field="contact_id1.name"/>
+                                        <span t-field="o.contact_id1.name"/>
                                     </td>
                                     <td width="15%" class="color-b name-th">
                                         <span>วันครบกำหนด</span>
                                     </td>
                                     <td width="15%" colspan="2" rowspan="2" class="name-show">
-
+                                        <span t-field="o.validity_date"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -352,7 +337,8 @@
                                         <span>พนักงานขาย</span>
                                     </td>
                                     <td width="15%" rowspan="2" class="name-show">
-                                        <span t-field="user_id.name"/> <span>    </span><span t-field="user_id.phone"/>
+                                        <span t-field="o.user_id.name"/> <span>    </span><span t-field="o.user_id.phone"/>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -369,6 +355,8 @@
                                 </tr>
                             </table>
                         </div>
+
+
                     </div>
                     <div class="page">
                         <style>
@@ -445,34 +433,40 @@
                             }
 
                         </style>
-                        <t t-set="max_body_height" t-value="240"/>
-                            <t t-set="new_line_height" t-value="2"/>
-                            <t t-set="row_line_height" t-value="7.9375"/> <!--- 30px = 7.9375 mm -->
-                            <t t-set="max_line_lenght" t-value="30"/>
 
 
-                            <t t-set="break_line" t-value="o.get_break_line(max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
-                            <t t-set="start" t-value="0"/>
-                            <t t-set="end" t-value="0"/>
-                            <t t-set="sum_seq" t-value="0"/>
-                            <t t-foreach="range(0,len(break_line),1)" t-as="x">
-                                <t t-set="a" t-value="0"/>
-                                <table style="height:170mm;" width="100%" class="table-bordered-b">
-                                    <thead class="color-text" style=" text-align:center  vertical-align: middle; font-weight: bold;">
-                                        <tr style="height:30px;">
-                                            <th width="4%"><span class="name-th">ลำดับ</span><br/><span class="name-eng">No</span></th>
-                                            <th width="60%"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>
-                                            <th width="5%"><span class="name-th">จำนวน</span><br/><span class="name-eng">Quantity</span></th>
-                                            <th width="5%"><span class="name-th">หน่วย</span><br/><span class="name-eng">Unit</span></th>
-                                            <th width="11%"><span class="name-th">ราคาต่อหน่วย</span><br/><span class="name-eng">Unit Price</span></th>
-                                            <th width="5%"><span class="name-th">ส่วนลด</span><br/><span class="name-eng">Dis.</span></th>
-                                            <th width="10%"><span class="name-th">ราคารวม</span><br/><span class="name-eng">Amount (THB)</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="name-show">
-                                        <t t-foreach="range(start,break_line[x],1)" t-as="y">
-                                            <t t-if="(y+1)!=(break_line[x])">
-                                                <t t-if="o.invoice_line_ids[y].product_id">
+                        <t t-set="max_body_height" t-value="200"/>
+                        <t t-set="new_line_height" t-value="2"/>
+                        <t t-set="row_line_height" t-value="7.9375"/> <!--- 30px = 7.9375 mm -->
+                        <t t-set="max_line_lenght" t-value="30"/>
+
+
+                        <t t-set="break_line" t-value="o.get_break_line(max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
+                        <t t-set="start" t-value="0"/>
+                        <t t-set="end" t-value="0"/>
+                        <t t-set="sum_seq" t-value="0"/>
+                        <t t-set="discount_line" t-value="0"/>
+                        <t t-set="payment_line" t-value="0"/>
+                        <t t-set="sum_total" t-value="0"/>
+                        <t t-set="new_total" t-value="0"/>
+                        <t t-foreach="range(0,len(break_line),1)" t-as="x">
+                            <t t-set="a" t-value="0"/>
+                            <table style="height:150mm;" width="100%" class="table-bordered-b">
+                                <thead class="color-text" style=" text-align:center  vertical-align: middle; font-weight: bold;">
+                                    <tr style="height:30px;">
+                                        <th width="4%"><span class="name-th">ลำดับ</span><br/><span class="name-eng">No</span></th>
+                                        <th width="65%"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>
+                                        <th width="5%"><span class="name-th">จำนวน</span><br/><span class="name-eng">Quantity</span></th>
+                                        <th width="5%"><span class="name-th">หน่วย</span><br/><span class="name-eng">Unit</span></th>
+                                        <th width="11%"><span class="name-th">ราคาต่อหน่วย</span><br/><span class="name-eng">Unit Price</span></th>
+                                        <th width="10%"><span class="name-th">ราคารวม</span><br/><span class="name-eng">Amount (THB)</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="name-show">
+                                    <t t-foreach="range(start,break_line[x],1)" t-as="y">
+                                        <t t-if="(y+1)!=(break_line[x])">
+                                            <t t-if="o.order_line[y].product_id">
+                                                <t t-if="o.order_line[y].product_id.name not in ( 'Discount','Down payment')">
                                                     <tr style="height:37px;">
                                                         <td style="text-align:center">
                                                             <div class="word-wrap">
@@ -481,34 +475,99 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <!--                                                        <div class="word-wrap" style="width: 550px;  border: 1px solid #9400D3;">-->
-                                                            <!--                                                              <t t-set="a" t-value="len(o.invoice_line_ids[y].name)"/>-->
-                                                            <!--                                                            <span t-esc="a"/>-->
                                                             <span t-field="o.order_line[y].name"/>
-                                                            <!--                                                        </div>-->
                                                         </td>
                                                         <td  style="text-align:center">
-                                                            <span t-field="o.order_line[y].quantity"/>
+                                                            <span t-field="o.order_line[y].product_uom_qty"/>
                                                         </td>
                                                         <td style="text-align:center">
-                                                            <span t-field="o.order_line[y].product_uom_id.name"/>
+                                                            <span t-field="o.order_line[y].product_uom.name"/>
                                                         </td>
                                                         <td style=" text-align:right">
                                                             <span t-field="o.order_line[y].price_unit"/>
                                                         </td>
                                                         <td style=" text-align:right">
-                                                            <span t-field="o.order_line[y].discount"/>
+                                                            <span t-esc="'{0:,.2f}'.format(float(o.order_line[y].price_subtotal))"/>
+                                                            <t t-set="sum_total" t-value="sum_total + float(o.order_line[y].price_subtotal)"/>
+                                                        </td>
+                                                    </tr>
+
+                                                </t>
+                                                <t t-elif="o.order_line[y].product_id.name == 'Down payment' and  o.order_line[y].price_subtotal &gt; 0">
+                                                    <tr style="height:37px;">
+
+                                                        <td style="text-align:center">
+                                                            <div class="word-wrap">
+                                                                <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                <span t-esc="sum_seq"/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="o.order_line[y].name"/>
+                                                        </td>
+                                                        <td  style="text-align:center">
+                                                            <span t-field="o.order_line[y].product_uom_qty"/>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <span t-field="o.order_line[y].product_uom.name"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-field="o.order_line[y].price_unit"/>
                                                         </td>
                                                         <td style=" text-align:right">
                                                             <span t-esc="'{0:,.2f}'.format(float(o.order_line[y].price_subtotal))"/>
+                                                            <t t-set="sum_total" t-value="sum_total + float(o.order_line[y].price_subtotal)"/>
                                                         </td>
 
                                                     </tr>
                                                 </t>
+                                                <t t-else="">
+                                                    <t t-if="o.order_line[y].product_id.name == 'Discount'">
+                                                        <t t-set="discount_line" t-value="discount_line + abs(float(o.order_line[y].price_subtotal))"/>
+
+
+                                                    </t>
+                                                    <t t-if="o.order_line[y].product_id.name == 'Down payment'">
+                                                        <t t-set="payment_line" t-value="payment_line + abs(float(o.order_line[y].price_subtotal))"/>
+
+                                                    </t>
+                                                </t>
 
                                             </t>
-                                            <t t-if="(y+1)==(break_line[x])">
-                                                <t t-if="o.invoice_line_ids[y].product_id">
+
+
+                                        </t>
+                                        <t t-if="(y+1)==(break_line[x])">
+                                            <t t-if="o.order_line[y].product_id">
+                                                <t t-if="o.order_line[y].product_id.name not in ( 'Discount','Down payment')">
+                                                    <tr>
+
+                                                        <td style="text-align:center">
+                                                            <div class="word-wrap">
+                                                                <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                <span t-esc="sum_seq"/>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span t-field="o.order_line[y].name"/>
+                                                        </td>
+                                                        <td  style="text-align:center">
+                                                            <span t-field="o.order_line[y].product_uom_qty"/>
+                                                        </td>
+                                                        <td style="text-align:center">
+                                                            <span t-field="o.order_line[y].product_uom.name"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-field="o.order_line[y].price_unit"/>
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            <span t-esc="'{0:,.2f}'.format(float(o.order_line[y].price_subtotal))"/>
+                                                            <t t-set="sum_total" t-value="sum_total + float(o.order_line[y].price_subtotal)"/>
+                                                        </td>
+
+                                                    </tr>
+                                                </t>
+                                                <t t-elif="o.order_line[y].product_id.name == 'Down payment' and  o.order_line[y].price_subtotal &gt; 0">
                                                     <tr>
                                                         <td style="text-align:center">
                                                             <div class="word-wrap">
@@ -517,216 +576,275 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <!--                                                        <div class="word-wrap" style="width: 550px;  border: 1px solid #9400D3;">-->
-                                                            <!--                                                              <t t-set="a" t-value="len(o.invoice_line_ids[y].name)"/>-->
-                                                            <!--                                                            <span t-esc="a"/>-->
                                                             <span t-field="o.order_line[y].name"/>
-                                                            <!--                                                        </div>-->
                                                         </td>
                                                         <td  style="text-align:center">
-                                                            <span t-field="o.order_line[y].quantity"/>
+                                                            <span t-field="o.order_line[y].product_uom_qty"/>
                                                         </td>
                                                         <td style="text-align:center">
-                                                            <span t-field="o.order_line[y].product_uom_id.name"/>
+                                                            <span t-field="o.order_line[y].product_uom.name"/>
                                                         </td>
                                                         <td style=" text-align:right">
                                                             <span t-field="o.order_line[y].price_unit"/>
                                                         </td>
                                                         <td style=" text-align:right">
-                                                            <span t-field="o.order_line[y].discount"/>
-                                                        </td>
-                                                        <td style=" text-align:right">
                                                             <span t-esc="'{0:,.2f}'.format(float(o.order_line[y].price_subtotal))"/>
+                                                            <t t-set="sum_total" t-value="sum_total + float(o.order_line[y].price_subtotal)"/>
                                                         </td>
+
+
                                                     </tr>
                                                 </t>
-                                                <t t-set="end" t-value="(break_line[x])"/>
-                                            </t>
-                                        </t>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td class="color-b name-th" colspan="4" rowspan="5" style="vertical-align: top; text-align:center">
-                                                <span>ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
-                                            </td>
-                                            <td align="right" colspan="2" class="color-text name-th">
-                                                <span>รวมเงิน / Sub Total :</span>
-
-                                            </td>
-                                            <td align="right" class="name-show">
-                                                <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_untaxed))"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" colspan="2" class="color-text name-th">
-                                                <span>หัก ส่วนลด / Discount :</span>
-
-                                            </td>
-                                            <td align="right" class="name-show">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" colspan="2" class="color-text name-th">
-                                                <span>หัก เงินมัดจำ / Deposit :</span>
-                                            </td>
-                                            <td align="right" class="name-show">
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td align="right" colspan="2" class="color-text name-th">
-                                                <span>เงินคงเหลือ / Total  :</span>
-                                            </td>
-                                            <td align="right" class="name-show">
-                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-
-                                            <td align="right" colspan="2" class="color-text name-th" >
-                                                <span>ภาษีมูลค่าเพิ่ม / VAT 7% :</span>
-                                            </td>
-                                            <td align="right" class="name-show">
-                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                               <td colspan="4"  class="name-show" align="center" style="vertical-align: middle;">
-                                                <t t-if="end ==(break_line[len(break_line)-1])">
-                                                    <strong>(<span t-esc="o.baht_text(o.amount_total)"/>)</strong>
+                                                <t t-else="">
+                                                    <t t-if="o.order_line[y].product_id.name == 'Discount'">
+                                                        <t t-set="discount_line" t-value="discount_line + abs(float(o.order_line[y].price_subtotal))"/>
+                                                    </t>
+                                                    <t t-if="o.order_line[y].product_id.name == 'Down payment'">
+                                                        <t t-set="payment_line" t-value="payment_line + abs(float(o.order_line[y].price_subtotal))"/>
+                                                    </t>
                                                 </t>
-                                            </td>
-                                            <td align="right" colspan="2" class="color-text name-th" >
-                                                <span>จำนวนเงินทั้งสิ้น / </span><br/><span>Grand Total :</span>
-                                            </td>
-                                            <td align="right" class="name-show" style="vertical-align: middle;">
-                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
 
-                                    <!--</tfoot>-->
-                                    <!--if using tfoot it will help to continue the table -->
+                                            </t>
+                                            <t t-set="end" t-value="(break_line[x])"/>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr >
+                                        <td class="color-b name-th" colspan="3" rowspan="4" style="vertical-align: top; text-align:center;">
+                                            <table class="table-nobordered-b color-text name-th" style="text-align:left" >
+                                                <tr>
+                                                    <!--                                <td width="70%" style="color: red;font-weight: bold;border-right: 1px solid #000;">-->
+                                                    <td width="70%" style="color: red;font-weight: bold; text-align:center">
+                                                        <span >ข้อกําหนดและเงื่อนไข / Term and Conditions. </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
+                                                    <td width="70%" style="">
+                                                        <span>1. ราคาที่เสนอเป็นราคาพิเศษสําหรับโครงการนี้เท่านั้น / The price offered is a special price for this project only.</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
+                                                    <td width="70%" style="">
+                                                        <span>2. ขอยืนราคาให้ภายใน 30 วัน นับจากวันที่เสนอราคา / Confirm the price within 30 days from the date of the bid.</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="70%" style="">
+                                                        <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
+                                                        <span>3. ระยะเวลาผลิต 30 วัน หรือตามตกลง หลังวางมัดจำ / Production time 30 days or as agreed after deposit.</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="70%" style="">
+                                                        <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
+                                                        <span>4. ต้องลงนามในใบสั่ฃซื้อทุกครั้ง เพื่อเป็นการยืนยันรายการสั่งซื้อ / Must sign every purchase order. to confirm order.</span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td align="right" colspan="2"  class="color-text name-th">
+                                            <span>รวมเงิน / Sub Total :</span>
 
-                                    <t t-set="start" t-value="break_line[x]"/>
-                                    <p style="page-break-after:always;"/>
-                                </table>
-                            </t>
-                    </div>
-                      <div class="footer">
-                              <style>
-                                    .div-color{
-                                    border:1px solid #4B0082;
-                                    }
-                                    .bg-color{
-                                    background-color: #DDA0DD;
-                                    }
+                                        </td>
+                                        <td align="right" class="name-show" >
+                                            <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(sum_total))"/>
+                                        </td>
+                                    </tr>
 
-                                    table.table-bordered-b {
-                                    border:1px solid #4B0082;
-                                    padding:3px;
-                                    }
-                                    table.table-bordered-b &gt; thead &gt; tr &gt; th{
-                                    border:1px solid #4B0082;
-                                    vertical-align: middle;
-                                    text-align:center;
-                                    padding:3px;
-                                    }
-                                    table.table-bordered-b &gt; tbody &gt; tr &gt; td{
-                                    border:0px solid White;
-                                    border-left: 1px solid #4B0082;
-                                    padding:3px;
-                                    }
-                                    table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
-                                    border:1px solid #4B0082;
-                                    padding:3px;
-                                    }
+                                    <tr>
+                                        <td align="right" colspan="2" class="color-text name-th">
+                                            <span>หัก ส่วนลด / Discount :</span>
 
-                                    table.table-nobordered-b{
-                                    border-collapse: collapse;
-                                    margin:0px;
-                                    width: 100%;
-                                    }
-                                    table.table-nobordered-b &gt; thead &gt; tr &gt; th{
-                                    border-top: 1px solid black;
-                                    border-bottom: 1px solid black;
-                                    text-align: center;
-                                    <!--border:1px solid white;-->
-                                    padding:1px;
-                                    }
-                                    table.table-nobordered-b &gt; thead &gt; tr &gt; td{
-                                    border:1px solid white;
-                                    padding:1px;
-                                    }
-                                    table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
-                                    border:1px solid white;
-                                    padding:1px;
-                                    }
-                                    table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
-                                    border:1px solid white;
-                                    padding:1px;
-                                    }
-                                    .color-text{
-                                    color:#9932CC;
-                                    }
-                                    .color-b{
-                                    color:#9932CC;
-                                    font-weight: bold;
-                                    }
-                                    .word-wrap{ word-wrap:break-word;}
-                                    .name-th{
-                                    font-size: 12px;
-                                    <!--                              line-height: 10px;-->
-                                    }
-                                    .name-eng{
-                                    font-size: 9px;
-                                    <!--                              line-height: 7px;-->
-                                    }
-                                    .name-show{
-                                    font-size: 12px;
-                                    <!--                              line-height: 10px;-->
-                                    }
+                                        </td>
+                                        <td align="right" class="name-show">
+                                            <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(discount_line))"/>
 
-                                </style>
-                            <table width="100%" class="table-bordered-b color-text" >
-                                <tr>
-                                    <td width="33.3%" align="center">
-                                        <span class="name-th">ได้รับสินค้าตามรายการถูกต้องเรียบร้อยแล้ว</span>
-                                        <br/>
-                                        <span class="name-eng">Received the correct product according to the list</span>
-                                        <div style="height:20mm;"/>
-                                        <span class="name-th">ผู้รับสินค้า / Received By</span>
-                                        <br/>
-                                        <br/>
-                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
-                                    </td>
-                                    <td width="33.3%" align="center">
-                                        <span class="name-th" style="color:white">กด </span>
-                                        <br/>
-                                        <span class="name-eng" style="font-size:11px; color:white">ok </span>
-                                        <div style="height:20mm;"/>
-                                        <span class="name-th">ผู้ส่งสินค้า / Delivery By</span>
-                                        <br/>
-                                        <br/>
-                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
-                                    </td>
-                                    <td width="33.3%" align="center">
-                                        <span class="name-th">ในนามบริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด</span>
-                                        <br/>
-                                        <span class="name-eng">For 3 Tigers Engineering Co.,Ltd.</span>
-                                        <div style="height:20mm;"/>
-                                        <span class="name-th">ผู้มีอำนาจลงนาม / Authorized Signature</span>
-                                        <br/>
-                                        <br/>
-                                        <span class="name-th">วันที่ / Date : .........../............/...........</span>
-                                    </td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right" colspan="2" class="color-text name-th">
+                                            <span>เงินคงเหลือ / Total  :</span>
+                                        </td>
+                                        <td align="right" class="name-show">
+                                            <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_untaxed))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                                </tr>
+                                        <td align="right" colspan="2" class="color-text name-th" style="vertical-align: middle;" >
+                                            <span>ภาษีมูลค่าเพิ่ม / VAT 7% :</span>
+                                        </td>
+                                        <td align="right" class="name-show" style="vertical-align: middle;">
+                                            <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"  class="name-show" align="center" style="vertical-align: middle;">
+                                            <t t-if="end ==(break_line[len(break_line)-1])">
+                                                <strong>(<span t-esc="o.baht_text(o.amount_total)"/>)</strong>
+                                            </t>
+                                        </td>
+                                        <td align="right" colspan="2" class="color-text name-th" >
+                                            <span>จำนวนเงินทั้งสิ้น / </span><br/><span>Grand Total :</span>
+                                        </td>
+                                        <td align="right" class="name-show" style="vertical-align: middle;">
+                                            <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+
+                                <!--</tfoot>-->
+                                <!--if using tfoot it will help to continue the table -->
+
+                                <t t-set="start" t-value="break_line[x]"/>
+                                <p style="page-break-after:always;"/>
                             </table>
-                      </div>
+                        </t>
+                    </div>
+                    <div class="footer">
+                        <style>
+                            .div-color{
+                            border:1px solid #4B0082;
+                            }
+                            .bg-color{
+                            background-color: #DDA0DD;
+                            }
 
+                            table.table-bordered-b {
+                            border:1px solid #4B0082;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; thead &gt; tr &gt; th{
+                            border:1px solid #4B0082;
+                            vertical-align: middle;
+                            text-align:center;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tbody &gt; tr &gt; td{
+                            border:0px solid White;
+                            border-left: 1px solid #4B0082;
+                            padding:3px;
+                            }
+                            table.table-bordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid #4B0082;
+                            padding:3px;
+                            }
+
+                            table.table-nobordered-b{
+                            border-collapse: collapse;
+                            margin:0px;
+                            width: 100%;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; th{
+                            border-top: 1px solid black;
+                            border-bottom: 1px solid black;
+                            text-align: center;
+                            <!--border:1px solid white;-->
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; thead &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tbody &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            table.table-nobordered-b &gt; tfoot &gt; tr &gt; td{
+                            border:1px solid white;
+                            padding:1px;
+                            }
+                            .color-text{
+                            color:#9932CC;
+                            }
+                            .color-b{
+                            color:#9932CC;
+                            font-weight: bold;
+                            }
+                            .word-wrap{ word-wrap:break-word;}
+                            .name-th{
+                            font-size: 12px;
+                            <!--                              line-height: 10px;-->
+                            }
+                            .name-eng{
+                            font-size: 9px;
+                            <!--                              line-height: 7px;-->
+                            }
+                            .name-show{
+                            font-size: 12px;
+                            <!--                              line-height: 10px;-->
+                            }
+
+                        </style>
+                        <table  class="table-nobordered-b color-b name-th">
+                            <tr>
+                                <td style="color: red;font-weight: bold; ">
+                                    <!--                                <td style="color: red;font-weight: bold; border-right: 1px solid #000; ">-->
+                                    <span>ช่องทางการชําระเงิน / Payment Method</span>
+                                </td>
+                                <td/>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!--                                <td  style="border-right: 1px solid #000;">-->
+                                    <span>ธนาคาร ไทยพาณิชย์ / เลขที่ 160-426829-2 / ชื่อบัญชี บริษัท 3 เสือ เอ็นจิเนียริ่ง จํากัด</span>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!--                                <td style="border-right: 1px solid #000;" >-->
+                                    <span>Bank : SCB / Account Number : 160-426829-2 / Account Name : 3 Tigers Engineering Co.,Ltd.</span>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                        <table width="100%" class="table-bordered-b color-text" >
+                            <tr>
+
+                                <td width="33.3%" align="center">
+                                    <span class="name-th" style="color:white">กด </span>
+                                    <br/>
+                                    <span class="name-eng" style="font-size:11px; color:white">ok </span>
+                                    <div style="height:20mm;"/>
+                                    <span class="name-th">ผู้จัดทำ / Prepared</span>
+                                    <br/>
+                                    <br/>
+                                    <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                </td>
+                                <td width="33.3%" align="center">
+                                    <span class="name-th">ในนามบริษัท 3 เสือ เอ็นจิเนียริ่ง จำกัด</span>
+                                    <br/>
+                                    <span class="name-eng">For 3 Tigers Engineering Co.,Ltd.</span>
+                                    <div style="height:20mm;"/>
+                                    <span class="name-th">ผู้อนุมัติ / Endorser</span>
+                                    <br/>
+                                    <br/>
+                                    <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                </td>
+                                <td width="33.3%" align="center">
+                                    <span class="name-th">กรุณาเซ็นยืนยันการสั่งซื้อด้านล่างนี้</span>
+                                    <br/>
+                                    <span class="name-eng">Please sign below for purchasing confirmation</span>
+                                    <div style="height:20mm;"/>
+                                    <span class="name-th">ผู้สั่งซื้อ / Orderer</span>
+                                    <br/>
+                                    <br/>
+                                    <span class="name-th">วันที่ / Date : .........../............/...........</span>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </div>
                 </t>
             </t>
+
+
         </template>
 
         <record id="paperformat_A4_Zero_Margin_report_so" model="report.paperformat">
@@ -734,12 +852,12 @@
             <field name="default" eval="False"/>
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">150</field>
-            <field name="margin_bottom">20</field>
+            <field name="margin_top">105</field>
+            <field name="margin_bottom">70</field>
             <field name="margin_left">5</field>
             <field name="margin_right">5</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">130</field>
+            <field name="header_spacing">105</field>
             <field name="dpi">96</field>
         </record>
 

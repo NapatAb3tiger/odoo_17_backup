@@ -47,25 +47,61 @@ class AccountMove(models.Model):
 
     def get_break_line(self, max_body_height, new_line_height, row_line_height, max_line_lenght):
         break_page_line = []
+        main_break_page_line = []
+
+        payment_line = 0
+        discount_line = 0
         count_height = 0
         count = 1
         for line in self.invoice_line_ids:
-            line_name = self.get_lines(line.name, max_line_lenght)
-            # remove by row height to line
-            # line_height = row_line_height + ((self.get_line(line.name, max_line_lenght)) * new_line_height)
-            line_height = row_line_height * line_name
-            print('=======line_height',line_height)
-            count_height += line_height
-            print('=======count_height', count_height)
-            if count_height > max_body_height:
-                break_page_line.append(count - 1)
-                count_height = line_height
-            count += 1
+            if line.product_id:
+                if line.product_id.name not in ( 'Discount','Down payment'):
+                    print('=11')
+                    line_name = self.get_lines(line.name, max_line_lenght)
+                    # remove by row height to line
+                    # line_height = row_line_height + ((self.get_line(line.name, max_line_lenght)) * new_line_height)
+                    line_height = row_line_height * line_name
+                    print('=======line_height', line_height)
+                    count_height += line_height
+                    print('=======count_height', count_height)
+                    if count_height > max_body_height:
+                        break_page_line.append(count - 1)
+                        count_height = line_height
+                    count += 1
+                elif line.product_id.name == 'Down payment' and  line.price_subtotal > 0:
+                    print('=22')
+                    line_name = self.get_lines(line.name, max_line_lenght)
+                    # remove by row height to line
+                    # line_height = row_line_height + ((self.get_line(line.name, max_line_lenght)) * new_line_height)
+                    line_height = row_line_height * line_name
+                    print('=======line_height', line_height)
+                    count_height += line_height
+                    print('=======count_height', count_height)
+                    if count_height > max_body_height:
+                        break_page_line.append(count - 1)
+                        count_height = line_height
+                    count += 1
+                else:
+                    if line.product_id.name == 'Discount':
+                        print('=33')
+                        discount_line = discount_line + abs(float(line.price_subtotal))
+                    if line.product_id.name == 'Down payment':
+                        print('=44')
+                        payment_line = payment_line + abs(float(line.price_subtotal))
+
+
         # last page
         break_page_line.append(count - 1)
+        val = {
+            'break_page_line': break_page_line,
+            'discount_line': discount_line,
+            'payment_line': payment_line
+        }
+        main_break_page_line.append(val)
         print('=======count', count)
-        print('=======break_page_line', break_page_line)
-        return break_page_line
+        print('=======val', val)
+        print('=======account_break_page_line', break_page_line)
+        return val
 
     def baht_text(self, amount):
         amount = round(amount, 2)

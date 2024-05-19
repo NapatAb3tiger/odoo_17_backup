@@ -51,6 +51,7 @@ class AccountMove(models.Model):
         print('====account',account)
         print('====account.invoice_line_ids',account.invoice_line_ids)
         for line in account.invoice_line_ids:
+
             line_name = self.get_lines(line.name, max_line_lenght)
             # remove by row height to line
             # line_height = row_line_height + ((self.get_line(line.name, max_line_lenght)) * new_line_height)

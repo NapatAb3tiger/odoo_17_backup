@@ -650,7 +650,7 @@
                                                                 <span t-field="account.invoice_line_ids[y].price_unit"/>
                                                             </td>
                                                             <td style=" text-align:right">
-                                                                <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
+                                                                <span t-esc="'{0:,.2f}'.format(float(account.invoice_line_ids[y].price_subtotal))"/>
                                                                 <t t-set="sum_total" t-value="sum_total + float(account.invoice_line_ids[y].price_subtotal)"/>
                                                             </td>
                                                         </tr>
@@ -716,7 +716,7 @@
                                                                 <span t-field="account.invoice_line_ids[y].price_unit"/>
                                                             </td>
                                                             <td style=" text-align:right">
-                                                                <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
+                                                                <span t-esc="'{0:,.2f}'.format(float(account.invoice_line_ids[y].price_subtotal))"/>
                                                                 <t t-set="sum_total" t-value="sum_total + float(account.invoice_line_ids[y].price_subtotal)"/>
                                                             </td>
 
@@ -1067,7 +1067,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                                <tr class="div-color">
+                                <tr class="div-color color-text name-th" >
                                     <td width="61%">
                                         <span  class="name-th">ในกรณีที่ชำระเป็นเช็ค ใบเสร็จฉบับนี้จะสมบูรณ์ก็ต่อเมื่อบริษัทฯ เรียกเก็บเงินจากธนาคารได้แล้ว </span>
                                         <br/>

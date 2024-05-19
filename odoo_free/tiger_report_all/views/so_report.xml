@@ -691,7 +691,7 @@
             <field name="margin_left">7</field>
             <field name="margin_right">5</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">5</field>
+            <field name="header_spacing">105</field>
             <field name="dpi">96</field>
         </record>
 
