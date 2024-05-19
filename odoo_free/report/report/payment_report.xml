@@ -606,17 +606,22 @@
                             <t t-set="start" t-value="0"/>
                             <t t-set="end" t-value="0"/>
                             <t t-set="sum_seq" t-value="0"/>
+                            <t t-set="discount_line" t-value="0"/>
+                            <t t-set="payment_line" t-value="0"/>
+                            <t t-set="sum_total" t-value="0"/>
+                            <t t-set="new_total" t-value="0"/>
                             <t t-foreach="range(0,len(break_line),1)" t-as="x">
                                 <t t-set="a" t-value="0"/>
                                 <table style="height:170mm;" width="100%" class="table-bordered-b">
                                     <thead class="color-text" style=" text-align:center  vertical-align: middle; font-weight: bold;">
                                         <tr style="height:30px;">
                                             <th width="4%"><span class="name-th">ลำดับ</span><br/><span class="name-eng">No</span></th>
-                                            <th width="60%"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>
+                                            <!--                                            <th width="60%"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>-->
+                                            <th width="65%"><span class="name-th">รายการ</span><br/><span class="name-eng">Description</span></th>
                                             <th width="5%"><span class="name-th">จำนวน</span><br/><span class="name-eng">Quantity</span></th>
                                             <th width="5%"><span class="name-th">หน่วย</span><br/><span class="name-eng">Unit</span></th>
                                             <th width="11%"><span class="name-th">ราคาต่อหน่วย</span><br/><span class="name-eng">Unit Price</span></th>
-                                            <th width="5%"><span class="name-th">ส่วนลด</span><br/><span class="name-eng">Dis.</span></th>
+                                            <!--                                            <th width="5%"><span class="name-th">ส่วนลด</span><br/><span class="name-eng">Dis.</span></th>-->
                                             <th width="10%"><span class="name-th">ราคารวม</span><br/><span class="name-eng">Amount (THB)</span></th>
                                         </tr>
                                     </thead>
@@ -624,72 +629,135 @@
                                         <t t-foreach="range(start,break_line[x],1)" t-as="y">
                                             <t t-if="(y+1)!=(break_line[x])">
                                                 <t t-if="account.invoice_line_ids[y].product_id">
-                                                    <tr style="height:37px;">
-                                                        <td style="text-align:center">
-                                                            <div class="word-wrap">
-                                                                <t t-set="sum_seq" t-value="sum_seq + 1"/>
-                                                                <span t-esc="sum_seq"/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <!--                                                        <div class="word-wrap" style="width: 550px;  border: 1px solid #9400D3;">-->
-                                                            <!--                                                              <t t-set="a" t-value="len(o.invoice_line_ids[y].name)"/>-->
-                                                            <!--                                                            <span t-esc="a"/>-->
-                                                            <span t-field="account.invoice_line_ids[y].name"/>
-                                                            <!--                                                        </div>-->
-                                                        </td>
-                                                        <td  style="text-align:center">
-                                                            <span t-field="account.invoice_line_ids[y].quantity"/>
-                                                        </td>
-                                                        <td style="text-align:center">
-                                                            <span t-field="account.invoice_line_ids[y].product_uom_id.name"/>
-                                                        </td>
-                                                        <td style=" text-align:right">
-                                                            <span t-field="account.invoice_line_ids[y].price_unit"/>
-                                                        </td>
-                                                        <td style=" text-align:right">
-                                                            <span t-field="account.invoice_line_ids[y].discount"/>
-                                                        </td>
-                                                        <td style=" text-align:right">
-                                                            <span t-esc="'{0:,.2f}'.format(float(account.invoice_line_ids[y].price_subtotal))"/>
-                                                        </td>
+                                                    <t t-if="account.invoice_line_ids[y].product_id.name not in ( 'Discount','Down payment')">
+                                                        <tr style="height:37px;">
+                                                            <td style="text-align:center">
+                                                                <div class="word-wrap">
+                                                                    <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                    <span t-esc="sum_seq"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="account.invoice_line_ids[y].name"/>
+                                                            </td>
+                                                            <td  style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].quantity"/>
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].product_uom_id.name"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-field="account.invoice_line_ids[y].price_unit"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
+                                                                <t t-set="sum_total" t-value="sum_total + float(account.invoice_line_ids[y].price_subtotal)"/>
+                                                            </td>
+                                                        </tr>
 
-                                                    </tr>
+                                                    </t>
+                                                    <t t-elif="account.invoice_line_ids[y].product_id.name == 'Down payment' and  account.invoice_line_ids[y].price_subtotal &gt; 0">
+                                                        <tr style="height:37px;">
+                                                            <td style="text-align:center">
+                                                                <div class="word-wrap">
+                                                                    <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                    <span t-esc="sum_seq"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="account.invoice_line_ids[y].name"/>
+                                                            </td>
+                                                            <td  style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].quantity"/>
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].product_uom_id.name"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-field="account.invoice_line_ids[y].price_unit"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-esc="'{0:,.2f}'.format(float(account.invoice_line_ids[y].price_subtotal))"/>
+                                                                <t t-set="sum_total" t-value="sum_total + float(account.invoice_line_ids[y].price_subtotal)"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Discount'">
+                                                            <t t-set="discount_line" t-value="discount_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
+                                                        </t>
+                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Down payment'">
+                                                            <t t-set="payment_line" t-value="payment_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
+                                                        </t>
+                                                    </t>
                                                 </t>
-
                                             </t>
                                             <t t-if="(y+1)==(break_line[x])">
                                                 <t t-if="account.invoice_line_ids[y].product_id">
-                                                    <tr>
-                                                        <td style="text-align:center">
-                                                            <div class="word-wrap">
-                                                                <t t-set="sum_seq" t-value="sum_seq + 1"/>
-                                                                <span t-esc="sum_seq"/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <!--                                                        <div class="word-wrap" style="width: 550px;  border: 1px solid #9400D3;">-->
-                                                            <!--                                                              <t t-set="a" t-value="len(o.invoice_line_ids[y].name)"/>-->
-                                                            <!--                                                            <span t-esc="a"/>-->
-                                                            <span t-field="account.invoice_line_ids[y].name"/>
-                                                            <!--                                                        </div>-->
-                                                        </td>
-                                                        <td  style="text-align:center">
-                                                            <span t-field="account.invoice_line_ids[y].quantity"/>
-                                                        </td>
-                                                        <td style="text-align:center">
-                                                            <span t-field="account.invoice_line_ids[y].product_uom_id.name"/>
-                                                        </td>
-                                                        <td style=" text-align:right">
-                                                            <span t-field="account.invoice_line_ids[y].price_unit"/>
-                                                        </td>
-                                                        <td style=" text-align:right">
-                                                            <span t-field="account.invoice_line_ids[y].discount"/>
-                                                        </td>
-                                                        <td style=" text-align:right">
-                                                            <span t-esc="'{0:,.2f}'.format(float(account.invoice_line_ids[y].price_subtotal))"/>
-                                                        </td>
-                                                    </tr>
+                                                    <t t-if="account.invoice_line_ids[y].product_id.name not in ( 'Discount','Down payment')">
+                                                        <tr>
+
+                                                            <td style="text-align:center">
+                                                                <div class="word-wrap">
+                                                                    <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                    <span t-esc="sum_seq"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="account.invoice_line_ids[y].name"/>
+                                                            </td>
+                                                            <td  style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].quantity"/>
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].product_uom_id.name"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-field="account.invoice_line_ids[y].price_unit"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-esc="'{0:,.2f}'.format(float(o.invoice_line_ids[y].price_subtotal))"/>
+                                                                <t t-set="sum_total" t-value="sum_total + float(account.invoice_line_ids[y].price_subtotal)"/>
+                                                            </td>
+
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="account.invoice_line_ids[y].product_id.name == 'Down payment' and  account.invoice_line_ids[y].price_subtotal &gt; 0">
+                                                        <tr>
+
+                                                            <td style="text-align:center">
+                                                                <div class="word-wrap">
+                                                                    <t t-set="sum_seq" t-value="sum_seq + 1"/>
+                                                                    <span t-esc="sum_seq"/>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="account.invoice_line_ids[y].name"/>
+                                                            </td>
+                                                            <td  style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].quantity"/>
+                                                            </td>
+                                                            <td style="text-align:center">
+                                                                <span t-field="account.invoice_line_ids[y].product_uom_id.name"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-field="account.invoice_line_ids[y].price_unit"/>
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                <span t-esc="'{0:,.2f}'.format(float(account.invoice_line_ids[y].price_subtotal))"/>
+                                                                <t t-set="sum_total" t-value="sum_total + float(account.invoice_line_ids[y].price_subtotal)"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Discount'">
+                                                            <t t-set="discount_line" t-value="discount_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
+                                                        </t>
+                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Down payment'">
+                                                            <t t-set="payment_line" t-value="payment_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
+                                                        </t>
+                                                    </t>
+
                                                 </t>
                                                 <t t-set="end" t-value="(break_line[x])"/>
                                             </t>
@@ -697,7 +765,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td class="color-b name-th" colspan="4" rowspan="3" style="vertical-align: top; ">
+                                            <td class="color-b name-th" colspan="3" rowspan="3" style="vertical-align: top; ">
                                                 <span style="text-align:center;">ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
                                                 <br/>
                                                 <span class="color-text name-th" style="text-align:left">อ้างอิง / Ref.</span>
@@ -706,7 +774,7 @@
                                                 <span>รวมเงิน / Sub Total :</span>
                                             </td>
                                             <td align="right" class="name-show">
-                                                <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(account.amount_untaxed))"/>
+                                                <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(sum_total))"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -714,6 +782,8 @@
                                                 <span>หัก ส่วนลด / Discount :</span>
                                             </td>
                                             <td align="right" class="name-show">
+                                                <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(discount_line))"/>
+
                                             </td>
                                         </tr>
                                         <tr>
@@ -722,31 +792,31 @@
                                                 <span>หัก เงินมัดจำ / Deposit :</span>
                                             </td>
                                             <td align="right" class="name-show">
-
+                                                <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(payment_line))"/>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" rowspan="2">
-                                                <table width="100%"  class="table-nobordered-b color-b name-th" >
+                                            <td colspan="3" rowspan="2">
+                                                <table width="100%"  class="table-nobordered-b name-th" >
                                                     <tr>
-                                                        <td width="60%">
+                                                        <td width="60%" class=" color-b ">
                                                             <span>ยอดคงค้าง / Outstanding balance :</span>
                                                         </td>
                                                         <td width="30%" class="name-show">
-
+                                                            <span t-if="end ==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(account.amount_residual))"/>
                                                         </td>
-                                                        <td width="10%">
+                                                        <td width="10%"  class=" color-b ">
                                                             <span>บาท / Baht</span>
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                 <span class="color-text name-th" style="color-text name-th">กำหนดชำระ / Payment due :</span>
+                                                <span class="color-text name-th" style="color-text name-th">กำหนดชำระ / Payment due :</span>
                                             </td>
                                             <td align="right" colspan="2" class="color-text name-th">
                                                 <span>เงินคงเหลือ / Total  :</span>
                                             </td>
                                             <td align="right" class="name-show">
-                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(account.amount_tax))"/>
+                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(account.amount_untaxed))"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -755,11 +825,11 @@
                                                 <span>ภาษีมูลค่าเพิ่ม / VAT 7% :</span>
                                             </td>
                                             <td align="right" class="name-show">
-                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(account.amount_total))"/>
+                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(account.amount_tax))"/>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4"  class="name-show" align="center" style="vertical-align: middle;">
+                                            <td colspan="3"  class="name-show" align="center" style="vertical-align: middle;">
                                                 <t t-if="end ==(break_line[len(break_line)-1])">
                                                     <strong>(<span t-esc="o.baht_text(account.amount_total)"/>)</strong>
                                                 </t>
@@ -782,7 +852,7 @@
                             </t>
                         </div>
                         <div class="footer">
-                           <t t-if="num_page_count == 1">
+                            <t t-if="num_page_count == 1">
                                 <style>
                                     .div-color{
                                     border:1px solid #FF8C00;
@@ -934,16 +1004,16 @@
 
                                 </style>
                             </t>
-                            <table width="100%" class="table-bordered-b color-text" >
+                            <table width="100%" class="table-bordered-b " >
                                 <tr>
                                     <td colspan="2">
-                                        <table width="100%" class="table-nobordered-b color-text">
+                                        <table width="100%" class="table-nobordered-b ">
                                             <tr>
                                                 <td width="15%" rowspan="2" class="color-b name-th">
                                                     <span>ชำระโดย/ Payment</span>
                                                 </td>
                                                 <td width="15%" class="color-text name-th">
-                                                    <t t-if="o.journal_id == 'Cash'">
+                                                    <t t-if="o.journal_id.name == 'Cash'">
                                                         <span>☑</span><span> เงินสด / Cash</span>
                                                     </t>
                                                     <t t-else="">
@@ -951,7 +1021,7 @@
                                                     </t>
                                                 </td>
                                                 <td width="10%" class="color-text name-th">
-                                                    <t t-if="o.journal_id == 'Cheque'">
+                                                    <t t-if="o.journal_id.name == 'Cheque'">
 
                                                         <span>☑</span><span> เช็ค / Cheque</span>
                                                     </t>
@@ -960,21 +1030,21 @@
                                                     </t>
                                                 </td>
                                                 <td width="10%" class="color-text name-th" style="text-align:right">
-                                                    <span>ธนาคาร/ Bank</span>
+                                                    <span>ธนาคาร/ Bank : </span>
                                                 </td>
-                                                <td width="15%">
-
+                                                <td width="15%" class="name-show">
+                                                    <span t-field="o.cheque_bank"/>
                                                 </td>
                                                 <td width="10%" class="color-text name-th" style="text-align:right">
-                                                    <span>สาขา/ Branch</span>
+                                                    <span>สาขา/ Branch : </span>
                                                 </td>
-                                                <td width="15%">
-
+                                                <td width="15%" class="name-show">
+                                                     <span t-field="o.cheque_branch"/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td width="15%" class="color-text name-th">
-                                                    <t t-if="o.journal_id == 'Bank'">
+                                                    <t t-if="o.journal_id.name == 'Bank'">
                                                         <span>☑</span><span> เงินโอน / Transfer </span>
                                                     </t>
                                                     <t t-else="">
@@ -982,16 +1052,16 @@
                                                     </t>
                                                 </td>
                                                 <td width="20%" colspan="2" class="color-text name-th" style="text-align:right">
-                                                    <span>เลขที่เช็ค/ Cheque No.</span>
+                                                    <span>เลขที่เช็ค/ Cheque No. : </span>
                                                 </td>
-                                                <td width="15%">
-
+                                                <td width="15%" class="name-show">
+                                                   <span t-field="o.cheque_number"/>
                                                 </td>
                                                 <td width="10%" class="color-text name-th" style="text-align:right">
-                                                    <span>ลงวันที่/ Date</span>
+                                                    <span>ลงวันที่/ Date : </span>
                                                 </td>
-                                                <td width="15%">
-
+                                                <td width="15%" class="name-show">
+                                                    <span t-field="o.cheque_date"/>
                                                 </td>
                                             </tr>
                                         </table>

@@ -26,7 +26,11 @@ class AccountPayment(models.Model):
     _inherit = "account.payment"
 
     name_account_th = fields.Char(string='Name Account TH', compute='_compute_name_new')
-
+    cheque_type = fields.Char(string='Cheque Type')
+    cheque_bank = fields.Char(string='Cheque Bank')
+    cheque_branch = fields.Char(string='Cheque Branch')
+    cheque_number = fields.Char(string='Cheque Number')
+    cheque_date = fields.Date(string='Cheque Date')
 
     def _compute_name_new(self):
         print('======compu')
@@ -36,4 +40,5 @@ class AccountPayment(models.Model):
                 time_to = (fields.Datetime.now().year + 543) % 100
                 month = "{:02d}".format(fields.Datetime.now().month)
                 i.name_account_th = str('SB' + str(time_to) + 'RC' + str(month) + new_seq[2])
+                i.cheque_type = i.journal_id.name
                 print('========i.name_account_th',i.name_account_th)
