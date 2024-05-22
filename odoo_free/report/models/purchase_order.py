@@ -8,8 +8,8 @@ from odoo.osv import expression
 from odoo.tools import email_re
 
 
-class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
 
     def get_lines(self, data, max_line):
         # this function will count number of \n

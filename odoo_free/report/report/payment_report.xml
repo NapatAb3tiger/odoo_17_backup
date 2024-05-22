@@ -600,9 +600,9 @@
                             <t t-set="new_line_height" t-value="2"/>
                             <t t-set="row_line_height" t-value="7.9375"/> <!--- 30px = 7.9375 mm -->
                             <t t-set="max_line_lenght" t-value="30"/>
+                            <t t-set="break_line" t-value="0"/>
 
-
-                            <t t-set="break_line" t-value="o.get_break_line(account,max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
+                            <t t-set="break_lines" t-value="o.get_break_line(account,max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
                             <t t-set="start" t-value="0"/>
                             <t t-set="end" t-value="0"/>
                             <t t-set="sum_seq" t-value="0"/>
@@ -610,7 +610,10 @@
                             <t t-set="payment_line" t-value="0"/>
                             <t t-set="sum_total" t-value="0"/>
                             <t t-set="new_total" t-value="0"/>
-                            <t t-foreach="range(0,len(break_line),1)" t-as="x">
+                            <t t-set="break_line" t-value="break_lines.get('break_page_line')"/>
+                            <t t-set="discount_line" t-value="break_lines.get('discount_line')"/>
+                            <t t-set="payment_line" t-value="break_lines.get('payment_line')"/>
+                            <t t-foreach="range(0, len(break_line), 1)" t-as="x">
                                 <t t-set="a" t-value="0"/>
                                 <table style="height:170mm;" width="100%" class="table-bordered-b">
                                     <thead class="color-text" style=" text-align:center  vertical-align: middle; font-weight: bold;">
@@ -682,14 +685,6 @@
                                                             </td>
                                                         </tr>
                                                     </t>
-                                                    <t t-else="">
-                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Discount'">
-                                                            <t t-set="discount_line" t-value="discount_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
-                                                        </t>
-                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Down payment'">
-                                                            <t t-set="payment_line" t-value="payment_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
-                                                        </t>
-                                                    </t>
                                                 </t>
                                             </t>
                                             <t t-if="(y+1)==(break_line[x])">
@@ -749,14 +744,6 @@
                                                             </td>
                                                         </tr>
                                                     </t>
-                                                    <t t-else="">
-                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Discount'">
-                                                            <t t-set="discount_line" t-value="discount_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
-                                                        </t>
-                                                        <t t-if="account.invoice_line_ids[y].product_id.name == 'Down payment'">
-                                                            <t t-set="payment_line" t-value="payment_line + abs(float(account.invoice_line_ids[y].price_subtotal))"/>
-                                                        </t>
-                                                    </t>
 
                                                 </t>
                                                 <t t-set="end" t-value="(break_line[x])"/>
@@ -765,10 +752,28 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td class="color-b name-th" colspan="3" rowspan="3" style="vertical-align: top; ">
-                                                <span style="text-align:center;">ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
-                                                <br/>
-                                                <span class="color-text name-th" style="text-align:left">อ้างอิง / Ref.</span>
+                                            <td  colspan="3" rowspan="3" style="vertical-align: top; ">
+                                                <table width="100%" class="table-nobordered-b color-text">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="color-b  name-th" style="text-align:center;">ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="color-text name-th" style="text-align:left">อ้างอิง / Ref. :  <span t-field="sale_id.name"/></span>
+
+                                                        </td>
+                                                    </tr>
+                                                     <tr>
+                                                           <td class="name-show">
+                                                               <span t-field="account.narration"/>
+                                                           </td>
+                                                       </tr>
+                                                </table>
+
+
                                             </td>
                                             <td align="right" colspan="2" class="color-text name-th">
                                                 <span>รวมเงิน / Sub Total :</span>
@@ -1039,7 +1044,7 @@
                                                     <span>สาขา/ Branch : </span>
                                                 </td>
                                                 <td width="15%" class="name-show">
-                                                     <span t-field="o.cheque_branch"/>
+                                                    <span t-field="o.cheque_branch"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1055,7 +1060,7 @@
                                                     <span>เลขที่เช็ค/ Cheque No. : </span>
                                                 </td>
                                                 <td width="15%" class="name-show">
-                                                   <span t-field="o.cheque_number"/>
+                                                    <span t-field="o.cheque_number"/>
                                                 </td>
                                                 <td width="10%" class="color-text name-th" style="text-align:right">
                                                     <span>ลงวันที่/ Date : </span>

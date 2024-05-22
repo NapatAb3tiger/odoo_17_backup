@@ -9,13 +9,14 @@
     'summary': 'Report',
     'description': """Report""",
     "license": "AGPL-3",
-    "depends": [ 'base','purchase','sale', 'account'],
+    "depends": [ 'base','purchase','sale', 'account','tiger_sale_order'],
     'assets': {
 
     },
     "data": [
 
         'report/so_report.xml',
+        'report/po_report.xml',
         'report/account_billing.xml',
         'report/account_report.xml',
         'report/payment_report.xml',

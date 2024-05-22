@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="report_so_form">
+        <template id="report_po_form">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
                     <div class="header">
@@ -187,13 +187,13 @@
                         <table width="100%" style="font-size: 26px; text-align: center ; vertical-align: middle; font-weight: bold; " class="table-bordered-b color-text bg-color">
                             <tr>
                                 <td width="80%">
-                                    <t t-if="o.state != 'sale'">
-                                        <span>ใบเสนอราคา</span><br/>
-                                        <span style="font-size: 15px;">Quotation</span>
+                                    <t t-if="o.state != 'purchase'">
+                                        <span>ใบขอราคา</span><br/>
+                                        <span style="font-size: 15px;">Requests for Quotation</span>
                                     </t>
-                                    <t t-elif="o.state == 'sale'">
-                                        <span>ใบสั่งขาย</span><br/>
-                                        <span style="font-size: 15px;">Sale Order</span>
+                                    <t t-elif="o.state == 'purchase'">
+                                        <span>ใบสั่งซื้อ</span><br/>
+                                        <span style="font-size: 15px;">Purchase Order</span>
                                     </t>
 
                                 </td>
@@ -305,7 +305,7 @@
                                         <span>วันครบกำหนด</span>
                                     </td>
                                     <td width="15%" colspan="2" rowspan="2" class="name-show">
-                                        <span t-field="o.validity_date"/>
+                                        <span t-field="o.date_planned"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -602,30 +602,7 @@
                                                         <span >ข้อกําหนดและเงื่อนไข / Term and Conditions. </span>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
-                                                    <td>
-                                                        <span>1. ราคาที่เสนอเป็นราคาพิเศษสําหรับโครงการนี้เท่านั้น / The price offered is a special price for this project only.</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
-                                                    <td>
-                                                        <span>2. ขอยืนราคาให้ภายใน 30 วัน นับจากวันที่เสนอราคา / Confirm the price within 30 days from the date of the bid.</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td >
-                                                        <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
-                                                        <span>3. ระยะเวลาผลิต 30 วัน หรือตามตกลง หลังวางมัดจำ / Production time 30 days or as agreed after deposit.</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <!--                                <td width="70%" style="border-right: 1px solid #000;">-->
-                                                        <span>4. ต้องลงนามในใบสั่ฃซื้อทุกครั้ง เพื่อเป็นการยืนยันรายการสั่งซื้อ / Must sign every purchase order. to confirm order.</span>
-                                                    </td>
-                                                </tr>
+
                                             </table>
                                             </div>
 
@@ -763,30 +740,7 @@
                             }
 
                         </style>
-                        <table  class="table-nobordered-b color-b name-th">
-                            <tr>
-                                <td style="color: red;font-weight: bold; ">
-                                    <!--                                <td style="color: red;font-weight: bold; border-right: 1px solid #000; ">-->
-                                    <span>ช่องทางการชําระเงิน / Payment Method</span>
-                                </td>
-                                <td/>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <!--                                <td  style="border-right: 1px solid #000;">-->
-                                    <span>ธนาคาร ไทยพาณิชย์ / เลขที่ 160-426829-2 / ชื่อบัญชี บริษัท 3 เสือ เอ็นจิเนียริ่ง จํากัด</span>
-                                </td>
 
-                            </tr>
-                            <tr>
-                                <td>
-                                    <!--                                <td style="border-right: 1px solid #000;" >-->
-                                    <span>Bank : SCB / Account Number : 160-426829-2 / Account Name : 3 Tigers Engineering Co.,Ltd.</span>
-                                </td>
-
-                            </tr>
-
-                        </table>
                         <table width="100%" class="table-bordered-b color-text" >
                             <tr>
 
@@ -831,8 +785,8 @@
 
         </template>
 
-        <record id="paperformat_A4_Zero_Margin_report_so" model="report.paperformat">
-            <field name="name">A4_Zero_Margin_report_so</field>
+        <record id="paperformat_A4_Zero_Margin_report_po" model="report.paperformat">
+            <field name="name">A4_Zero_Margin_report_po</field>
             <field name="default" eval="False"/>
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
@@ -845,16 +799,16 @@
             <field name="dpi">96</field>
         </record>
 
-        <record id="report_so_id" model="ir.actions.report">
-            <field name="name">Document SO</field>
-            <field name="model">sale.order</field>
+        <record id="report_po_id" model="ir.actions.report">
+            <field name="name">Document PO</field>
+            <field name="model">purchase.order</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">report.report_so_form</field>
-            <field name="report_file">report.report_so_form</field>
-            <field name="print_report_name">('Document SO - %s' % (object.name))</field>
-            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="report_name">report.report_po_form</field>
+            <field name="report_file">report.report_po_form</field>
+            <field name="print_report_name">('Document PO - %s' % (object.name))</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
             <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="report.paperformat_A4_Zero_Margin_report_so"/>
+            <field name="paperformat_id" ref="report.paperformat_A4_Zero_Margin_report_po"/>
         </record>
 
     </data>

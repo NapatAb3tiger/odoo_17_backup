@@ -5,7 +5,10 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <field name="currency_id" position="after">
-                 <field name="location_company" />
+                <field name="shipping_cost" />
+                 <field name="contact_id1" create="0" context="{'default_type':'contact', 'show_address': False, 'show_vat': False}"/>
+                 <field name="contact_phone1" />
+
             </field>
         </field>
     </record>
