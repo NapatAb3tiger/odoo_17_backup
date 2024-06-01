@@ -431,13 +431,13 @@
                         <t t-set="new_line_height" t-value="2"/>
                         <t t-set="row_line_height" t-value="7.9375"/> <!--- 30px = 7.9375 mm -->
                         <t t-set="max_line_lenght" t-value="30"/>
- <t t-set="break_line" t-value="0"/>
+                        <t t-set="break_line" t-value="0"/>
 
 
-                        <t t-set="break_line" t-value="o.get_break_line(max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
-                             <t t-set="break_line" t-value="break_lines.get('break_page_line')"/>
-                            <t t-set="discount_line" t-value="break_lines.get('discount_line')"/>
-                            <t t-set="payment_line" t-value="break_lines.get('payment_line')"/>
+                        <t t-set="break_lines" t-value="o.get_break_line1(max_body_height,new_line_height,row_line_height,max_line_lenght)"/>
+                        <t t-set="break_line" t-value="break_lines.get('break_page_line')"/>
+                        <t t-set="discount_line" t-value="break_lines.get('discount_line')"/>
+                        <t t-set="payment_line" t-value="break_lines.get('payment_line')"/>
                         <t t-set="start" t-value="0"/>
                         <t t-set="end" t-value="0"/>
                         <t t-set="sum_seq" t-value="0"/>

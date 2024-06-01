@@ -1084,7 +1084,7 @@
                                     <tfoot>
                                         <tr>
                                             <td  colspan="3" rowspan="5" style="vertical-align: top; ">
-                                                   <table width="100%" class="table-nobordered-b color-text">
+                                                <table width="100%" class="table-nobordered-b color-text">
                                                     <tr>
                                                         <td>
                                                             <span class="color-b  name-th" style="text-align:center;">ข้อกำหนดและเงื่อนไข / Term and Conditions.</span>
@@ -1097,11 +1097,11 @@
 
                                                         </td>
                                                     </tr>
-                                                       <tr>
-                                                           <td class="name-show">
-                                                               <span t-field="o.narration"/>
-                                                           </td>
-                                                       </tr>
+                                                    <tr>
+                                                        <td class="name-show">
+                                                            <span t-field="o.narration"/>
+                                                        </td>
+                                                    </tr>
                                                 </table>
 
                                             </td>
@@ -1145,20 +1145,39 @@
                                                 <span>ภาษีมูลค่าเพิ่ม / VAT 7% :</span>
                                             </td>
                                             <td align="right" class="name-show">
-                                                <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
+                                                <t t-if="float(o.amount_untaxed) == 0.0">
+                                                    <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_untaxed))"/>
+
+                                                </t>
+                                                <t t-if="float(o.amount_untaxed) != 0.0">
+                                                    <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_tax))"/>
+
+                                                </t>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colspan="3"  class="name-show" align="center" style="vertical-align: middle;">
                                                 <t t-if="end ==(break_line[len(break_line)-1])">
-                                                    <strong>(<span t-esc="o.baht_text(o.amount_total)"/>)</strong>
+                                                    <t t-if="float(o.amount_untaxed) == 0.0">
+                                                        <strong>(<span t-esc="o.baht_text(o.amount_untaxed)"/>)</strong>
+                                                    </t>
+                                                    <t t-if="float(o.amount_untaxed) != 0.0">
+                                                        <strong>(<span t-esc="o.baht_text(o.amount_total)"/>)</strong>
+
+                                                    </t>
                                                 </t>
                                             </td>
                                             <td align="right" colspan="2" class="color-text name-th" >
                                                 <span>จำนวนเงินทั้งสิ้น / </span><br/><span>Grand Total :</span>
                                             </td>
                                             <td align="right" class="name-show" style="vertical-align: middle;">
+                                                  <t t-if="float(o.amount_untaxed) == 0.0">
+                                                    <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_untaxed))"/>
+                                                    </t>
+                                                    <t t-if="float(o.amount_untaxed) != 0.0">
                                                 <span t-if="end==(break_line[len(break_line)-1])" t-esc="'{0:,.2f}'.format(float(o.amount_total))"/>
+
+                                                    </t>
                                             </td>
                                         </tr>
                                     </tfoot>
